@@ -110,6 +110,31 @@ MiMi的[发布版本](https://github.com/aiaimimi0920/mimi/releases)中包含全
   - 举个例子："我想把文件a上传到aws平台"。那么其实是两个插件完成这个任务的，aws_adapter 提供面向aws的服务，file_list 提供面向用户的服务，ai会识别到file_list中的fs_upload_form最匹配这个方法，并自动填充相关参数，然后调用aws_adapter中对应的功能，注意：调用aws_adapter完成上传文件的相关代码是由file_list插件的开发者自己编写的，而不是ai去猜测如何调用，ai只会猜测如何调用功能插件中的相关函数。
   - 实现原因：因为ai在多轮思考中并不是很聪明，换句话说他其实并不能很聪明的组装基础插件来完成我需要的功能，而功能其实可以类似抽象为普通的日常生活中所可能有的操作，毕竟日常生活中大部分的操作都是重复可定义的。
 
+### 插件开发流程
+- 检出本项目的main分支到本地main_project_dir
+- 检出本项目的plugin分支到本地plugin_project_dir
+- 检出本项目的tools分支到本地tools_dir
+  - 本项目对于godot引擎有小幅修改，所以需要用tools中包含的编辑器才可以打开
+  - 修改tools_dir/mklink.py 中的 main_project 和 plugin_project 为main_project_dir 和 plugin_project_dir。此脚本的作用是将main project 中的内容通过软链接的形式同步到plugin_dir中
+- 根据插件类型：
+  - 功能插件：
+    - gd代码存放点: plugin_project_dir/plugin/your_plugin_name/version/
+    - 插件打包的时候只会打包存放目录的内容，不会打包任何外部内容。
+    - 模板：core/api/plugin_api/plugin_template/template/ 或者其他的插件
+  - 基础插件
+    - 不需要外部程序(纯gd开发)：
+      - gd代码存放点: plugin_project_dir/external_service_adapter/your_plugin_name/version/
+      - 插件打包的时候只会打包存放目录的内容，不会打包任何外部内容。
+      - 模板: core/api/plugin_api/service_plugin_no_program_template/external_service_adapter/template/ 或者其他的插件
+    - 需要外部程序(依赖其他的外部程序或者链接库)：
+      - gd代码存放点: plugin_project_dir/external_service_adapter/your_plugin_name/version/
+      - 外部程序或者库存放点：plugin_project_dir/external_service/your_plugin_name/version/
+      - 插件打包的时候只会打包存放目录的内容，不会打包任何外部内容。注意如果你external_service包含过程代码，请在打包的时候先删除，比如：你的外部程序是用python开发的exe程序，你将external_service/your_plugin_name/version/作为你的代码存放点，那么你应该在打包的时候只保留外部程序在external_service/your_plugin_name/version/中，临时删除原始的python代码，否则你的python代码也会打包到插件包中。
+      - 模板: core/api/plugin_api/service_plugin_template/external_service_adapter/template/ 或者其他的插件
+- 插件上传：
+  - 可以通过在编辑器中运行主场景，然后输入指令/packing_bot generate_plugin_file your_plugin_name 触发打包与上传流程。
+- 请注意：本项目不要求你公开你插件的源代码，所以你可以是以闭源插件的形式上传插件。如果你有兴趣将你的插件代码合并到plugin分支中，我们也十分欢迎。
+
 ### 插件请求
 急寻贡献者
 - 下载插件：现在的下载逻辑其实是通过godot的http表单下载实现的，没有多线程的加持就是很慢。希望贡献者可以优化下载速度，可行的参考方案：1. 在godot中通过多线程+分块来下载内容 2. 通过在插件中集成xdown等下载软件，并调用软件来加快下载速度。
@@ -119,7 +144,7 @@ MiMi的[发布版本](https://github.com/aiaimimi0920/mimi/releases)中包含全
 
 ## 项目许可
 
-项目基于AGPL-3.0许可进行开源，具体内容请参见[LICENSE文件](https://github.com/aiaimimi0920/mimi/blob/main/LICENSE)
+项目基于LGPL-3.0许可进行开源，具体内容请参见[LICENSE文件](https://github.com/aiaimimi0920/mimi/blob/main/LICENSE)
 
 ## 联系信息
 

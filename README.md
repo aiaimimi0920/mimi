@@ -110,6 +110,32 @@ The following list includes the projects this project is based on. When using th
   - For example, "I want to upload file A to the AWS platform." In reality, two plugins complete this task: aws_adapter provides AWS services, and file_list provides user services. The AI will recognize that fs_upload_form in file_list is the most suitable method for this task, automatically fill in the relevant parameters, and then call the corresponding function in aws_adapter. Note: The code to call aws_adapter to complete the file upload is written by the developer of the file_list plugin, not the AI trying to guess how to call it. The AI only guesses how to call the relevant functions in the functional plugins.
   - Reason for implementation: Because AI is not very smart in multi-turn thinking. In other words, it cannot cleverly assemble basic plugins to complete the functionality I need. However, functionality can be abstracted similarly to common operations in daily life, as most operations in daily life are repetitive and definable.
 
+### Plugin development process
+- Check out the main branch of this project to the local main_project_dir.
+- Check out the plugin branch of this project to the local plugin_project_dir.
+- Check out the tools branch of this project to the local tools_dir.
+  - This project has minor modifications to the Godot engine, so you need to use the editor included in the tools directory to open it.
+  - Modify main_project and plugin_project in tools_dir/mklink.py to main_project_dir and plugin_project_dir. This script is used to synchronize the contents of the main project to the plugin directory through symbolic links.
+- Based on the plugin type:
+  - Function plugin:
+    - GD script location: plugin_project_dir/plugin/your_plugin_name/version/
+    - Only the contents of the storage directory will be packaged during plugin packaging, no external content will be included.
+    - Template: core/api/plugin_api/plugin_template/template/ or other plugins.
+  - Base plugin:
+    - No external program required (pure GD development):
+      - GD script location: plugin_project_dir/external_service_adapter/your_plugin_name/version/
+      - Only the contents of the storage directory will be packaged during plugin packaging, no external content will be included.
+      - Template: core/api/plugin_api/service_plugin_no_program_template/external_service_adapter/template/ or other plugins.
+    - External program required (depends on other external programs or libraries):
+      - GD script location: plugin_project_dir/external_service_adapter/your_plugin_name/version/
+      - External program or library location: plugin_project_dir/external_service/your_plugin_name/version/
+      - Only the contents of the storage directories will be packaged during plugin packaging, no external content will be included. Note that if your external service includes procedural code, please delete it before packaging. For example, if your external program is an exe program developed in Python and you use external_service/your_plugin_name/version/ as the code storage location, you should only keep the external program in external_service/your_plugin_name/version/ during packaging and temporarily delete the original Python code. Otherwise, your Python code will also be packaged in the plugin package.
+      - Template: core/api/plugin_api/service_plugin_template/external_service_adapter/template/ or other plugins.
+- Plugin upload:
+  - You can trigger the packaging and uploading process by running the main scene in the editor and entering the command "/packing_bot generate_plugin_file your_plugin_name".
+- Please note: This project does not require you to publicly disclose the source code of your plugin, so you can upload the plugin as a closed-source plugin. If you are interested in merging your plugin code into the plugin branch, we welcome it.
+
+
 ### Plugin Requests
 Urgently seeking contributors
 - Download plugin: The current download logic is implemented through Godot's HTTP form, and it is slow without multi-threading. Contributors are requested to optimize download speed. Feasible reference solutions: 1. Download content in Godot through multi-threading + chunking. 2. Integrate download software such as xdown into plugins and call the software to speed up downloads.
@@ -118,7 +144,7 @@ Urgently seeking contributors
 
 ## Project License
 
-The project is open-source under the AGPL-3.0 license. For specific details, please refer to the [LICENSE文件](https://github.com/aiaimimi0920/mimi/blob/main/LICENSE)
+The project is open-source under the LGPL-3.0 license. For specific details, please refer to the [LICENSE文件](https://github.com/aiaimimi0920/mimi/blob/main/LICENSE)
 
 ## Contact Information
 
