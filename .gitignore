@@ -1,0 +1,52 @@
+# Godot 4+ specific ignores
+.godot/
+
+# Godot-specific ignores
+.import/
+export.cfg
+export_presets.cfg
+*.tmp
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json
+
+# Builds/export folder
+![Bb]uild/.gdignore
+[Bb]uild/
+
+# Sandbox folder (for testing in local machine)
+[Ss]andbox/
+
+# macOS-specific ignores
+.DS_Store
+
+# VSCode-specific ignores
+.vscode/
+
+# Python-specific ignores
+*.pyc
+*.log
+/external_service/*/dist/
+/external_service_adapter/*/dist/
+/external_service/*/build/
+/external_service_adapter/*/build/
+*.exe
+
+# Main-project ignores
+/export_presets.cfg
+/icon.svg
+/project.godot
+/addons
+/core
+/game_settings
+/gui
+/models
+/modules
+/resources
+/viewer
+/update

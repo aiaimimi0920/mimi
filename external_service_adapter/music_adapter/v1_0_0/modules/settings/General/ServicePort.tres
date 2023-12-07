@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dx35muju22ec7"]
+
+[ext_resource type="Script" path="res://external_service_adapter/music_adapter/v1_0_0/modules/settings/General/ServicePort.gd" id="1_147fe"]
+
+[resource]
+script = ExtResource("1_147fe")
+current = 8080
+default = 8080
+name = ""
+category = ""
+value_type = 2
+value_hint = 0
+value_hint_string = ""
+show_visible = true
+show_name = "ServicePort"
+show_ui = 7

@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+package mubert;
+
+enum C2SMAINPROTOCOL {
+	C2SMAINPROTOCOL_NONE = 0;
+	C_S_MUBERT = 1; //只是作为一个读取主协议字符串的定义，保持和主协议同一个名字即可
+}
+
+enum S2CMAINPROTOCOL {
+	S2CMAINPROTOCOL_NONE = 0;
+	S_C_MUBERT = 1; //只是作为一个读取主协议字符串的定义，保持和主协议同一个名字即可
+}
+
+enum C2SPROTOCOL {
+	C2SPROTOCOL_NONE = 0;
+	C_S_CREATE_MUSIC = 1001;
+}
+
+enum S2CPROTOCOL {
+	S2CPROTOCOL_NONE = 0;
+	S_C_CREATE_MUSIC = 2001;
+}
+
+message M_C_S_CREATE_MUSIC {
+	string tags = 1;
+	int64 duration = 2;
+	string proxiesHttp=3;
+	string proxiesHttps=4;
+	string saveDir = 5;
+}
+
+message M_S_C_CREATE_MUSIC {
+	string audio64 = 1;
+	string filePath = 2;
+	string sourceUrl = 3;
+}

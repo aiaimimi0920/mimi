@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://s0i7du5cc2yu"]
+
+[ext_resource type="Script" path="res://plugin/knowledge_library/v1_0_0/modules/settings/Library/ExcludeFilter.gd" id="1_4kxx4"]
+
+[resource]
+resource_name = "ExcludeFilter"
+script = ExtResource("1_4kxx4")
+current = ""
+default = ""
+name = "ExcludeFilter"
+category = "Library"
+value_type = 4
+value_hint = 0
+value_hint_string = ""
+show_visible = true
+show_name = "ExcludeFilter"
+show_ui = 9

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bh5m1hfchwkhu"]
+
+[ext_resource type="Script" path="res://plugin/file_list/v1_0_0/modules/settings/General/PreferredCloudStorage.gd" id="1_ylee0"]
+
+[resource]
+resource_name = "PreferredCloudStorage"
+script = ExtResource("1_ylee0")
+current = 1
+default = 1
+name = "PreferredCloudStorage"
+category = "General"
+value_type = 2
+value_hint = 2
+value_hint_string = "IPFS,Cloudflare,AWS"
+show_visible = true
+show_name = "PreferredCloudStorage"
+show_ui = 1

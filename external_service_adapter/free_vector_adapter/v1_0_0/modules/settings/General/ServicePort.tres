@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://tutmr5yhvnlh"]
+
+[ext_resource type="Script" path="res://external_service_adapter/free_vector_adapter/v1_0_0/modules/settings/General/ServicePort.gd" id="1_va1xd"]
+
+[resource]
+resource_name = "ServicePort"
+script = ExtResource("1_va1xd")
+current = 9515
+default = 9515
+name = "ServicePort"
+category = "General"
+value_type = 2
+value_hint = 0
+value_hint_string = ""
+show_visible = true
+show_name = "ServicePort"
+show_ui = 7

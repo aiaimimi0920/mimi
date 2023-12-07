@@ -1,0 +1,133 @@
+syntax = "proto3";
+
+package chroma;
+
+enum C2SMAINPROTOCOL {
+	C2SMAINPROTOCOL_NONE = 0;
+	C_S_CHROMA = 1; //Just as a definition for reading the main protocol string, keep the same name as the main protocol
+}
+
+enum S2CMAINPROTOCOL {
+	S2CMAINPROTOCOL_NONE = 0;
+	S_C_CHROMA = 1; //Just as a definition for reading the main protocol string, keep the same name as the main protocol
+}
+
+enum C2SPROTOCOL {
+	C2SPROTOCOL_NONE = 0;
+	C_S_ADD_DOCUMENTS = 1001;
+	C_S_DELETE_DOCUMENTS = 1002;
+	C_S_GET_DOCUMENTS = 1003;
+	C_S_QUERY_DOCUMENTS = 1004;
+	C_S_LOAD_FILES = 1005;
+	C_S_UNLOAD_FILES = 1006;
+}
+
+enum S2CPROTOCOL {
+	S2CPROTOCOL_NONE = 0;
+	S_C_ADD_DOCUMENTS = 2001;
+	S_C_DELETE_DOCUMENTS = 2002;
+	S_C_GET_DOCUMENTS = 2003;
+	S_C_QUERY_DOCUMENTS = 2004;
+	S_C_LOAD_FILES = 2005;
+	S_C_UNLOAD_FILES = 2006;
+}
+
+message M_C_S_ADD_DOCUMENTS {
+	repeated string documents = 1;
+	repeated string metadatas = 2;
+	repeated string ids = 3;
+	string type = 4;
+	bool persistent = 5;
+	string space = 6;
+	repeated string uris = 7;
+}
+
+message M_S_C_ADD_DOCUMENTS {
+	bool result = 1;
+}
+
+message M_C_S_DELETE_DOCUMENTS {
+	repeated string ids = 1;
+	repeated string where = 2;
+	repeated string where_document = 3;
+	string type = 4;
+	bool persistent = 5;
+	string space = 6;
+	repeated string uris = 7;
+}
+
+message M_S_C_DELETE_DOCUMENTS {
+	bool result = 1;
+}
+
+message M_C_S_GET_DOCUMENTS {
+	repeated string ids = 1;
+	repeated string where = 2;
+	repeated string where_document = 3;
+	repeated string include = 4;
+	string type = 5;
+	bool persistent = 6;
+	string space = 7;
+	repeated string uris = 8;
+}
+
+message EMBEDDING_INFO {
+	repeated float embedding = 1;
+}
+
+message M_S_C_GET_DOCUMENTS {
+	bool result = 1;
+	repeated string ids = 2;
+	repeated string documents = 3;
+	repeated string metadatas = 4;
+	repeated EMBEDDING_INFO embeddings = 5;
+}
+
+message M_C_S_QUERY_DOCUMENTS {
+	repeated EMBEDDING_INFO query_embeddings = 1;
+	repeated string query_texts = 2;
+	repeated string query_images = 3;
+	repeated string query_uris = 4;
+	int32 n_results = 5;
+	repeated string where = 6;
+	repeated string where_document = 7;
+	repeated string include = 8;
+	string type = 9;
+	bool persistent = 10;
+	string space = 11;
+	repeated string uris = 12;
+}
+
+message QUERY_DOCUMENTS_INFO {
+	repeated string ids = 1;
+	repeated string documents = 2;
+	repeated string metadatas = 3;
+	repeated EMBEDDING_INFO embeddings = 4;
+	repeated float distances = 5;
+}
+message M_S_C_QUERY_DOCUMENTS {
+	bool result = 1;
+	repeated QUERY_DOCUMENTS_INFO query_documents = 2;
+}
+
+message M_C_S_LOAD_FILES {
+	repeated string file_paths = 1;
+	string type = 2;
+	bool persistent = 3;
+	string space = 4;
+}
+
+message M_S_C_LOAD_FILES {
+	bool result = 1;
+}
+
+message M_C_S_UNLOAD_FILES {
+	repeated string file_paths = 1;
+	string type = 2;
+	bool persistent = 3;
+	string space = 4;
+}
+
+message M_S_C_UNLOAD_FILES {
+	bool result = 1;
+}

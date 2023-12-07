@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bh235w7esly7k"]
+
+[ext_resource type="Script" path="res://external_service_adapter/pck_adapter/v1_0_0/modules/settings/Export/PresetsCfgBackup.gd" id="1_c2dvt"]
+
+[resource]
+resource_name = "PresetsCfgBackup"
+script = ExtResource("1_c2dvt")
+current = "res://backup_export_presets.cfg"
+default = "res://backup_export_presets.cfg"
+name = "PresetsCfgBackup"
+category = "Export"
+value_type = 4
+value_hint = 0
+value_hint_string = ""
+show_visible = true
+show_name = "PresetsCfgBackup"
+show_ui = 9

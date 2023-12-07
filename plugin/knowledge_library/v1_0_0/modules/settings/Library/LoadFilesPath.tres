@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://bkk1qa3ycldqw"]
+
+[ext_resource type="Script" path="res://plugin/knowledge_library/v1_0_0/modules/settings/Library/LoadFilesPath.gd" id="1_2lo6u"]
+
+[resource]
+resource_name = "LoadFilesPath"
+script = ExtResource("1_2lo6u")
+current = ""
+default = ""
+name = "LoadFilesPath"
+category = "Library"
+value_type = 4
+value_hint = 0
+value_hint_string = ""
+show_visible = true
+show_name = "LoadFilesPath"
+show_ui = 9

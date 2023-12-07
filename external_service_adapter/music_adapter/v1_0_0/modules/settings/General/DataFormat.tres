@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://nmw6msu0kj1n"]
+
+[ext_resource type="Script" path="res://external_service_adapter/music_adapter/v1_0_0/modules/settings/General/DataFormat.gd" id="1_n2svc"]
+
+[resource]
+script = ExtResource("1_n2svc")
+current = 1
+default = 1
+name = ""
+category = ""
+value_type = 2
+value_hint = 2
+value_hint_string = "Json,Protobuf"
+show_visible = true
+show_name = "DataFormat"
+show_ui = 1

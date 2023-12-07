@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://d70fo0xivy2k"]
+
+[ext_resource type="Script" path="res://external_service_adapter/stable_horde_adapter/v1_0_0/modules/settings/General/AIHordeUrl.gd" id="1_lmlcr"]
+
+[resource]
+resource_name = "AIHordeUrl"
+script = ExtResource("1_lmlcr")
+current = "https://aihorde.net"
+default = "https://aihorde.net"
+name = "AIHordeUrl"
+category = "General"
+value_type = 4
+value_hint = 0
+value_hint_string = ""
+show_visible = true
+show_name = "AIHordeUrl"
+show_ui = 9

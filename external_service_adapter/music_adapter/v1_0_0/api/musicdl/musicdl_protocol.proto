@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package musicdl;
+
+enum C2SMAINPROTOCOL {
+	C2SMAINPROTOCOL_NONE = 0;
+	C_S_MUSICDL = 1; //只是作为一个读取主协议字符串的定义，保持和主协议同一个名字即可
+}
+
+enum S2CMAINPROTOCOL {
+	S2CMAINPROTOCOL_NONE = 0;
+	S_C_MUSICDL = 1; //只是作为一个读取主协议字符串的定义，保持和主协议同一个名字即可
+}
+
+enum C2SPROTOCOL {
+	C2SPROTOCOL_NONE = 0;
+	C_S_SEARCH_MUSIC = 1001;
+	C_S_DOWNLOAD_MUSIC = 1002;
+}
+
+enum S2CPROTOCOL {
+	S2CPROTOCOL_NONE = 0;
+	S_C_SEARCH_MUSIC = 2001;
+	S_C_DOWNLOAD_MUSIC = 2002;
+}
+
+message M_C_S_SEARCH_MUSIC {
+	string songName = 1;
+	string singer = 2;
+	string proxiesHttp=3;
+	string proxiesHttps=4;
+	string saveDir = 5;
+}
+
+message M_C_S_DOWNLOAD_MUSIC {
+	string songName = 1;
+	string singer = 2;
+	string downloadUrl = 3;
+	string proxiesHttp=4;
+	string proxiesHttps=5;
+	string saveDir = 6;
+}
+
+
+message M_S_C_SEARCH_MUSIC {
+	message MUSIC_INFO {
+		string songName = 1;
+		string singer = 2;
+		string downloadUrl = 3;
+		string source = 4; 
+		string duration = 5;
+	}
+	repeated MUSIC_INFO musicInfos = 1;
+}
+
+message M_S_C_DOWNLOAD_MUSIC {
+	string audio64 = 1;
+	string filePath = 2;
+	string sourceUrl = 3;
+	string songName = 4;
+	string singer = 5;
+	string duration = 6;
+}
+

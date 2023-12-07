@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package mubert;
+
+enum C2SMAINPROTOCOL {
+	C2SMAINPROTOCOL_NONE = 0;
+	C_S_CHAT = 1; //Just as a definition for reading the main protocol string, keep the same name as the main protocol
+}
+
+enum S2CMAINPROTOCOL {
+	S2CMAINPROTOCOL_NONE = 0;
+	S_C_CHAT = 1; //Just as a definition for reading the main protocol string, keep the same name as the main protocol
+}
+
+enum C2SPROTOCOL {
+	C2SPROTOCOL_NONE = 0;
+	C_S_INIT_COMPLETIONS = 1001;
+	C_S_CREATE_CHAT_COMPLETION = 1002;
+}
+
+enum S2CPROTOCOL {
+	S2CPROTOCOL_NONE = 0;
+	S_C_INIT_COMPLETIONS = 2001;
+	S_C_CREATE_CHAT_COMPLETION = 2002;
+}
+
+message M_C_S_INIT_COMPLETIONS {
+	message PROXIES_INFO {
+		string http = 1;
+		string https = 2;
+	}
+
+	PROXIES_INFO proxies = 1;
+}
+
+message M_S_C_INIT_COMPLETIONS {
+	bool result = 1;
+}
+
+message MESSAGE_INFO {
+	string content = 1;
+	string role = 2;
+}
+
+message M_C_S_CREATE_CHAT_COMPLETION {
+	bool stream = 1;
+	repeated MESSAGE_INFO messages = 2;
+	int32 messages_level = 3;
+}
+
+message M_S_C_CREATE_CHAT_COMPLETION {
+	message CHOICE_INFO {
+		int32 index = 1;
+		MESSAGE_INFO message_body = 2;
+		string finish_reason = 3;
+	}
+	message USAGE_INFO {
+		int32 prompt_tokens = 1;
+		int32 completion_tokens = 2;
+		int32 total_tokens = 3;
+	}
+	string id = 1;
+	string object = 2;
+	int32 created = 3;
+	string model = 4;
+	repeated CHOICE_INFO choices = 5;
+	USAGE_INFO usage = 6;
+}

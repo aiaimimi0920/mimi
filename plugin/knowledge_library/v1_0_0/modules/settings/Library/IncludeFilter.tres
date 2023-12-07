@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://yql74r4qroot"]
+
+[ext_resource type="Script" path="res://plugin/knowledge_library/v1_0_0/modules/settings/Library/IncludeFilter.gd" id="1_jumbg"]
+
+[resource]
+resource_name = "IncludeFilter"
+script = ExtResource("1_jumbg")
+current = ""
+default = ""
+name = "IncludeFilter"
+category = "Library"
+value_type = 4
+value_hint = 0
+value_hint_string = ""
+show_visible = true
+show_name = "IncludeFilter"
+show_ui = 9

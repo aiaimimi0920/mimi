@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cub6fxuf6s1xc"]
+
+[ext_resource type="Script" path="res://external_service_adapter/free_vector_adapter/v1_0_0/modules/settings/General/DataFormat.gd" id="1_84aku"]
+
+[resource]
+resource_name = "DataFormat"
+script = ExtResource("1_84aku")
+current = 1
+default = 1
+name = "DataFormat"
+category = "General"
+value_type = 2
+value_hint = 2
+value_hint_string = "Json,Protobuf"
+show_visible = true
+show_name = "DataFormat"
+show_ui = 1
