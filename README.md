@@ -60,9 +60,11 @@ Launch MiMi.exe to run the project. Note: The first time you run and ask a quest
 
 ## Usage Examples
 - General questioning:
-  - ![base_question](https://github.com/aiaimimi0920/mimi/assets/153103332/5976bec2-c631-4f53-8f4a-a6b6dd5b5104)
+  - ![base_question](https://github.com/aiaimimi0920/mimi/assets/153103332/bf32d50c-f547-4fc5-9813-0ecbb471dd76)
+
 - Plugin questioning: (open the gear button)
-  - ![plugin_question](https://github.com/aiaimimi0920/mimi/assets/153103332/2fcc5635-6a1e-4f0a-8875-ced63a950767)
+  - ![plugin_question](https://github.com/aiaimimi0920/mimi/assets/153103332/ce2a0f63-9aaf-4e5d-8b0a-244d32d87cf6)
+
 - Knowledge base questioning: (open the document button)
 - Internet questioning: (not yet completed)
 
