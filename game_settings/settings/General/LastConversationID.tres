@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://h3we63xg0vid"]
+
+[ext_resource type="Script" path="res://game_settings/settings/General/LastConversationID.gd" id="1_6rs1d"]
+
+[resource]
+resource_name = "LastConversationID"
+script = ExtResource("1_6rs1d")
+current = ""
+default = ""
+name = "LastConversationID"
+category = "General"
+value_type = 4
+value_hint = 0
+value_hint_string = ""
+show_visible = false
+show_name = "LastConversationID"
+show_ui = 9

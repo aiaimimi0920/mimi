@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch4cj3cxinawy"]
+
+[ext_resource type="Script" path="res://gui/conversation/conversation_message_template/xml_template/xml_template.gd" id="1_p7qy6"]
+[ext_resource type="Texture2D" uid="uid://blr65s7n8ro5f" path="res://gui/common/icon/quit-options-menu-button-background.png" id="2_0cn1x"]
+
+[node name="XmlTemplate" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 50)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 55.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_p7qy6")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("2_0cn1x")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 25
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="CodeEdit" type="CodeEdit" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+editable = false
+scroll_fit_content_height = true
+line_folding = true
+gutters_draw_executing_lines = true
+gutters_draw_line_numbers = true
+gutters_draw_fold_gutter = true
+code_completion_enabled = true
+indent_automatic = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+
+[connection signal="resized" from="MarginContainer/CodeEdit" to="." method="_on_code_edit_text_changed"]
+[connection signal="text_changed" from="MarginContainer/CodeEdit" to="." method="_on_code_edit_text_changed"]
+[connection signal="text_set" from="MarginContainer/CodeEdit" to="." method="_on_code_edit_text_changed"]

@@ -1,0 +1,161 @@
+[gd_scene load_steps=8 format=3 uid="uid://nv26litct3ri"]
+
+[ext_resource type="PackedScene" uid="uid://cnk7pba2ho5c7" path="res://core/system/chat_input_box.tscn" id="1_kj1r5"]
+[ext_resource type="Script" path="res://core/system/main.gd" id="1_s7sht"]
+[ext_resource type="PackedScene" uid="uid://d0y5py4myov37" path="res://gui/conversation/conversation_container.tscn" id="2_5dwlr"]
+[ext_resource type="PackedScene" uid="uid://bkgiujufcxj8p" path="res://gui/conversation/plugin_conversation_container.tscn" id="3_11gkh"]
+[ext_resource type="PackedScene" uid="uid://dqett8pktlr15" path="res://gui/conversation/conversation_message.tscn" id="3_ddaxj"]
+[ext_resource type="PackedScene" uid="uid://birqyoesacalq" path="res://viewer/main.tscn" id="4_1ctj2"]
+[ext_resource type="Script" path="res://core/system/DialogMessageContainer.gd" id="4_mnuow"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_s7sht")
+conversation_message_tscn = ExtResource("3_ddaxj")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Empty1" type="Control" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="ConversationContainer" parent="HBoxContainer" instance=ExtResource("2_5dwlr")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Empty5" type="Control" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Control" type="Control" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="DialogMessageContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.3
+anchor_top = 1.0
+anchor_right = 1.3
+anchor_bottom = 1.0
+offset_top = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+mouse_filter = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 40
+script = ExtResource("4_mnuow")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 6.0
+alignment_horizontal = 2
+alignment_vertical = 2
+
+[node name="Model" type="SubViewportContainer" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+size_flags_stretch_ratio = 6.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer/Model"]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(400, 400)
+render_target_update_mode = 4
+
+[node name="ModelMain" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer/Model/SubViewport" instance=ExtResource("4_1ctj2")]
+unique_name_in_owner = true
+
+[node name="Empty4" type="Control" parent="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+mouse_filter = 2
+
+[node name="ChatInputBox" parent="HBoxContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_kj1r5")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+size_flags_stretch_ratio = 2.0
+
+[node name="Empty3" type="Control" parent="HBoxContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(528, 180)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="PluginConversationContainer" parent="HBoxContainer" instance=ExtResource("3_11gkh")]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Empty2" type="Control" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[connection signal="change_conversation" from="HBoxContainer/ConversationContainer" to="." method="_on_conversation_container_change_conversation"]
+[connection signal="inactive_dialog" from="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control/DialogMessageContainer" to="." method="_on_dialog_message_container_inactive_dialog"]
+[connection signal="item_rect_changed" from="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control/DialogMessageContainer" to="." method="_on_dialog_message_container_resized"]
+[connection signal="visibility_changed" from="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Control/DialogMessageContainer" to="." method="_on_dialog_message_container_visibility_changed"]
+[connection signal="active_model" from="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer/Model/SubViewport/ModelMain" to="." method="_on_model_main_active_model"]
+[connection signal="change_relative_postion" from="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer/Model/SubViewport/ModelMain" to="." method="_on_main_change_relative_postion"]
+[connection signal="inactive_model" from="HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/AspectRatioContainer/Model/SubViewport/ModelMain" to="." method="_on_model_main_inactive_model"]
+[connection signal="ask_something" from="HBoxContainer/MarginContainer/VBoxContainer/ChatInputBox" to="." method="_on_chat_input_box_ask_something"]
+[connection signal="toggled_main_conversation_info" from="HBoxContainer/MarginContainer/VBoxContainer/ChatInputBox" to="." method="_on_chat_input_box_toggled_main_conversation_info"]
+[connection signal="toggled_plugin_conversation_info" from="HBoxContainer/MarginContainer/VBoxContainer/ChatInputBox" to="." method="_on_chat_input_box_toggled_plugin_conversation_info"]
+[connection signal="visibility_changed" from="HBoxContainer/MarginContainer/VBoxContainer/ChatInputBox" to="." method="_on_chat_input_box_visibility_changed"]

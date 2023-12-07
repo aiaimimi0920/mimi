@@ -1,0 +1,66 @@
+[gd_scene load_steps=6 format=3 uid="uid://1aaun1avh5dy"]
+
+[ext_resource type="Script" path="res://gui/conversation/plugin_conversation_menu_bar.gd" id="1_3tjnu"]
+[ext_resource type="Texture2D" uid="uid://c4xe6482tg4gy" path="res://gui/common/icons/menu.png" id="2_vqf5t"]
+[ext_resource type="Script" path="res://gui/common/components/flat_texture_button.gd" id="3_srhtg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ddxpb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0eba4"]
+
+[node name="PluginConversationMenubar" type="Panel"]
+custom_minimum_size = Vector2(0, 38)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_3tjnu")
+
+[node name="Left" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VSeparator" type="VSeparator" parent="Left"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+theme_override_constants/separation = 12
+theme_override_styles/separator = SubResource("StyleBoxEmpty_ddxpb")
+
+[node name="MenuButton" type="TextureButton" parent="Left"]
+modulate = Color(0.776471, 0.776471, 0.776471, 1)
+custom_minimum_size = Vector2(18, 18)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("2_vqf5t")
+stretch_mode = 3
+script = ExtResource("3_srhtg")
+hover_tint = Color(0.313726, 1, 0.839216, 1)
+
+[node name="VSeparator2" type="VSeparator" parent="Left"]
+custom_minimum_size = Vector2(12, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 12
+theme_override_styles/separator = SubResource("StyleBoxEmpty_0eba4")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Left"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Left/ScrollContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Tabs" type="HBoxContainer" parent="Left/ScrollContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="pressed" from="Left/MenuButton" to="." method="_on_MenuButton_pressed"]

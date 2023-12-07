@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://d0y5py4myov37"]
+
+[ext_resource type="Script" path="res://gui/conversation/conversation_container.gd" id="1_hd1xy"]
+[ext_resource type="PackedScene" uid="uid://cluo4lyddami4" path="res://gui/conversation/conversation_menu_bar.tscn" id="2_il820"]
+[ext_resource type="PackedScene" uid="uid://qir6a16c2cst" path="res://gui/conversation/conversation.tscn" id="3_oy450"]
+[ext_resource type="PackedScene" uid="uid://de1x3ww7wmcdv" path="res://gui/conversation/conversation_main_menu.tscn" id="4_35qkg"]
+[ext_resource type="PackedScene" uid="uid://wdq1siho5iet" path="res://gui/conversation/conversation_about_dialog.tscn" id="5_3nv0g"]
+[ext_resource type="PackedScene" uid="uid://bvcxgk16py2wy" path="res://gui/conversation/settings_dialog/settings_dialog.tscn" id="6_nq6nn"]
+
+[node name="ConversationContainer" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hd1xy")
+
+[node name="ConversationContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Menubar" parent="ConversationContainer" instance=ExtResource("2_il820")]
+unique_name_in_owner = true
+layout_mode = 2
+_main_menu_path = NodePath("ConversationMainMenu")
+
+[node name="ConversationMainMenu" parent="ConversationContainer/Menubar" instance=ExtResource("4_35qkg")]
+position = Vector2i(0, 38)
+visible = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ConversationContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+follow_focus = true
+
+[node name="MarginContainer" type="MarginContainer" parent="ConversationContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 40
+
+[node name="Conversation" parent="ConversationContainer/ScrollContainer/MarginContainer" instance=ExtResource("3_oy450")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="ConversationAboutDialog" parent="ConversationContainer" instance=ExtResource("5_3nv0g")]
+unique_name_in_owner = true
+visible = false
+
+[node name="SettingsDialog" parent="ConversationContainer" instance=ExtResource("6_nq6nn")]
+unique_name_in_owner = true
+visible = false
+
+[connection signal="conversation_closed" from="ConversationContainer/Menubar" to="." method="_on_menubar_conversation_closed"]
+[connection signal="conversation_selected" from="ConversationContainer/Menubar" to="." method="_on_menubar_conversation_selected"]
+[connection signal="create_new_conversation" from="ConversationContainer/Menubar" to="." method="_on_menubar_create_new_conversation"]
+[connection signal="export_md" from="ConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_export_md"]
+[connection signal="open_about_dialog" from="ConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_about_dialog"]
+[connection signal="open_bug_tracker_url" from="ConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_bug_tracker_url"]
+[connection signal="open_manual_url" from="ConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_manual_url"]
+[connection signal="open_settings_dialog" from="ConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_settings_dialog"]
+[connection signal="child_entered_tree" from="ConversationContainer/ScrollContainer/MarginContainer/Conversation" to="." method="_on_conversation_child_entered_tree"]

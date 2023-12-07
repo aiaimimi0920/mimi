@@ -1,0 +1,41 @@
+[gd_scene load_steps=12 format=3 uid="uid://exvcdqrs2jld"]
+
+[ext_resource type="PackedScene" uid="uid://1qpe22ky2s6y" path="res://game_settings/components/arrow_list/arrow_list.tscn" id="1_ml0v2"]
+[ext_resource type="PackedScene" uid="uid://c11tbsolk6dnu" path="res://game_settings/components/radio_list/radio_list.tscn" id="1_r4kou"]
+[ext_resource type="Script" path="res://gui/conversation/settings_dialog/key_value_container.gd" id="1_s3hqy"]
+[ext_resource type="PackedScene" uid="uid://bhkyf3l4ee800" path="res://game_settings/components/checkbox/checkbox.tscn" id="1_tkm4y"]
+[ext_resource type="PackedScene" uid="uid://di8r6amxunq7q" path="res://game_settings/components/text_field/text_field.tscn" id="1_vfty3"]
+[ext_resource type="PackedScene" uid="uid://dm1av7skxvp1j" path="res://game_settings/components/input_btn/input_btn.tscn" id="4_r8o36"]
+[ext_resource type="PackedScene" uid="uid://b7m6l0lvojrsj" path="res://game_settings/components/option_list/option_list.tscn" id="5_dsnuq"]
+[ext_resource type="PackedScene" uid="uid://ds06mwhee8ygm" path="res://game_settings/components/slider/slider.tscn" id="7_2tq4y"]
+[ext_resource type="PackedScene" uid="uid://bqi00h7i7sg3u" path="res://game_settings/components/spinbox/spinbox.tscn" id="8_wpmi7"]
+[ext_resource type="PackedScene" uid="uid://cha8xesfthpfk" path="res://game_settings/components/switch/switch.tscn" id="9_brts5"]
+[ext_resource type="PackedScene" uid="uid://d10row618jwcs" path="res://game_settings/components/toggle_btn/toggle_btn.tscn" id="11_wrfie"]
+
+[node name="KeyValueContainer" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_constants/separation = 20
+script = ExtResource("1_s3hqy")
+arrow_list_tscn = ExtResource("1_ml0v2")
+check_box_tscn = ExtResource("1_tkm4y")
+input_btn_tscn = ExtResource("4_r8o36")
+option_list_tscn = ExtResource("5_dsnuq")
+radio_list_tscn = ExtResource("1_r4kou")
+slider_tscn = ExtResource("7_2tq4y")
+spin_box_tscn = ExtResource("8_wpmi7")
+switch_tscn = ExtResource("9_brts5")
+text_field_tscn = ExtResource("1_vfty3")
+toggle_btn_tscn = ExtResource("11_wrfie")
+
+[node name="KeyLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "1231"
+
+[node name="ValueContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3

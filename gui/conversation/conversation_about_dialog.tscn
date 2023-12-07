@@ -1,0 +1,164 @@
+[gd_scene load_steps=4 format=3 uid="uid://wdq1siho5iet"]
+
+[ext_resource type="Texture2D" uid="uid://cmfmqxllixt88" path="res://icon.svg" id="1_8bwyw"]
+[ext_resource type="Script" path="res://gui/conversation/conversation_about_dialog.gd" id="1_8obvk"]
+[ext_resource type="Texture2D" uid="uid://dvtx6j1xg685a" path="res://gui/common/icons/close.png" id="3_7a3kh"]
+
+[node name="ConversationAboutDialog" type="Window"]
+title = "ABOUT_DIALOG_TITLE"
+size = Vector2i(450, 300)
+unresizable = true
+borderless = true
+script = ExtResource("1_8obvk")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("1_8bwyw")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="NameVersionLabel2" type="Label" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "NAME"
+
+[node name="NameVersionLabel" type="Label" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Lorien vX.Y.Z"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="AuthorLabel2" type="Label" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "AUTHOR"
+
+[node name="AuthorLabel" type="Label" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "ABOUT_DIALOG_AUTHOR"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="WebsiteLabel" type="Label" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "WEBSITE"
+
+[node name="WebsiteLinkButton" type="LinkButton" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/HBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "github.com/mbrlabs/Lorien"
+
+[node name="DescriptionVBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/DescriptionVBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/DescriptionVBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/DescriptionVBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "DESCRIPTION"
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/DescriptionVBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/DescriptionVBoxContainer"]
+layout_mode = 2
+
+[node name="DescriptionLabel" type="RichTextLabel" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/DescriptionVBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1231231231"
+fit_content = true
+
+[node name="DependencyVBoxContainer" type="VBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/DependencyVBoxContainer"]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/DependencyVBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/DependencyVBoxContainer/HBoxContainer5"]
+layout_mode = 2
+text = "ABOUT_DIALOG_DEPENDENCY"
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/DependencyVBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DependencyContainer" type="HFlowContainer" parent="MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/DependencyVBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+
+[node name="CloseButton" type="TextureButton" parent="."]
+custom_minimum_size = Vector2(40, 40)
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+texture_normal = ExtResource("3_7a3kh")
+ignore_texture_size = true
+stretch_mode = 5
+
+[connection signal="close_requested" from="." to="." method="hide"]
+[connection signal="pressed" from="CloseButton" to="." method="hide"]

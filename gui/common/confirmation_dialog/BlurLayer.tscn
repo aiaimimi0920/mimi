@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://8yven4jvh8ua"]
+
+[ext_resource type="Material" uid="uid://doay2f8cyycqc" path="res://gui/common/confirmation_dialog/BlurShaderMaterial.material" id="1"]
+
+[node name="BlurLayer" type="ColorRect"]
+material = ExtResource("1")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2

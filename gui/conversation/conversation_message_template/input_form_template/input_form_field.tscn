@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddu211hk6tv64"]
+
+[ext_resource type="Script" path="res://gui/conversation/conversation_message_template/input_form_template/input_form_field.gd" id="1_5yeeu"]
+
+[node name="input_form_field" type="HBoxContainer"]
+theme_override_constants/separation = 20
+script = ExtResource("1_5yeeu")
+
+[node name="KeyLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+text = "你好"
+
+[node name="ValueLineEdit" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[connection signal="text_changed" from="ValueLineEdit" to="." method="_on_value_line_edit_text_changed"]

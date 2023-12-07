@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://buq3wv323v4o6"]
+
+[ext_resource type="Script" path="res://gui/conversation/settings_dialog/group_container.gd" id="1_5igov"]
+[ext_resource type="PackedScene" uid="uid://exvcdqrs2jld" path="res://gui/conversation/settings_dialog/key_value_container.tscn" id="2_ra1ua"]
+
+[node name="GroupContainer" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_5igov")
+key_value_tscn = ExtResource("2_ra1ua")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GroupName" type="Label" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "1231231231"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NodeContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3

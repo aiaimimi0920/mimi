@@ -1,0 +1,88 @@
+[gd_scene load_steps=12 format=3 uid="uid://birqyoesacalq"]
+
+[ext_resource type="Script" path="res://viewer/main.gd" id="1_3jhs4"]
+[ext_resource type="Resource" uid="uid://cwp3yy3ku4f0p" path="res://resources/models_data/data/gdbot_model_data.tres" id="5_v2ndd"]
+[ext_resource type="Shader" path="res://viewer/assets/shaders/ground.gdshader" id="6_s8bys"]
+[ext_resource type="Script" path="res://viewer/turner.gd" id="7_0tn27"]
+[ext_resource type="Material" uid="uid://cqdapslfy1rva" path="res://viewer/assets/materials/background_mat.tres" id="8_nxs1c"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4cejc"]
+ground_horizon_color = Color(0.898039, 0.898039, 0.905882, 1)
+
+[sub_resource type="Sky" id="Sky_fa2m7"]
+sky_material = SubResource("ProceduralSkyMaterial_4cejc")
+
+[sub_resource type="Environment" id="Environment_cw67r"]
+background_color = Color(0.105882, 0.105882, 0.105882, 1)
+sky = SubResource("Sky_fa2m7")
+ambient_light_source = 2
+ambient_light_color = Color(0.52549, 0.52549, 0.52549, 1)
+tonemap_mode = 2
+tonemap_exposure = 1.1
+tonemap_white = 0.9
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_25vcg"]
+render_priority = 0
+shader = ExtResource("6_s8bys")
+shader_parameter/grid_color = Color(0.764706, 0.815686, 0.878431, 1)
+shader_parameter/grid_opacity = 0.025
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pcsvn"]
+size = Vector2(4, 4)
+
+[sub_resource type="QuadMesh" id="QuadMesh_purc5"]
+size = Vector2(2, 1)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_3jhs4")
+model_data = ExtResource("5_v2ndd")
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_cw67r")
+
+[node name="Ground" type="MeshInstance3D" parent="World"]
+visible = false
+material_override = SubResource("ShaderMaterial_25vcg")
+mesh = SubResource("PlaneMesh_pcsvn")
+skeleton = NodePath("../..")
+
+[node name="Turner" type="Node3D" parent="World"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+script = ExtResource("7_0tn27")
+metadata/_edit_group_ = true
+
+[node name="Camera3D" type="Camera3D" parent="World/Turner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.5)
+fov = 60.0
+
+[node name="BackgroundPlane" type="MeshInstance3D" parent="World/Turner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
+visible = false
+material_override = ExtResource("8_nxs1c")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_purc5")
+skeleton = NodePath("../..")
+
+[node name="FrontLight" type="DirectionalLight3D" parent="World/Turner"]
+transform = Transform3D(0.707107, -0.298836, 0.640856, -1.49012e-08, 0.906308, 0.422618, -0.707107, -0.298836, 0.640856, 0, -0.609801, 1.49012e-08)
+light_energy = 0.65
+shadow_enabled = true
+directional_shadow_max_distance = 20.0
+directional_shadow_pancake_size = 0.0
+
+[node name="BackLight" type="OmniLight3D" parent="World/Turner"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.653888, 0, -0.722009)
+light_energy = 0.5
+omni_attenuation = 0.554785
+
+[node name="ModelHolder" type="Node3D" parent="World"]
+unique_name_in_owner = true
+
+[connection signal="active_model" from="World/Turner" to="." method="_on_turner_active_model"]
+[connection signal="change_relative_postion" from="World/Turner" to="." method="_on_turner_change_relative_postion"]
+[connection signal="inactive_model" from="World/Turner" to="." method="_on_turner_inactive_model"]

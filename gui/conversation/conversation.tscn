@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://qir6a16c2cst"]
+
+[ext_resource type="Script" path="res://gui/conversation/conversation.gd" id="1_bkb6l"]
+[ext_resource type="PackedScene" uid="uid://dqauy7ar7gatu" path="res://gui/conversation/conversation_message_container.tscn" id="2_revm6"]
+
+[node name="Conversation" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bkb6l")
+conversation_message_container_tscn = ExtResource("2_revm6")

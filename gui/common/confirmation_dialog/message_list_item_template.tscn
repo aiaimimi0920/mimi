@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dys4ajxre3jfn"]
+
+[node name="MessageListItemTemplate" type="HBoxContainer"]
+mouse_filter = 2
+
+[node name="BulletPoint" type="Label" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+text = " •  "
+
+[node name="MessageLabel" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+text = "Are you sure to restart the battle? Are you sure to restart the battle?"

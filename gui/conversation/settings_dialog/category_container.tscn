@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://c77dkw5jdhci3"]
+
+[ext_resource type="PackedScene" uid="uid://exvcdqrs2jld" path="res://gui/conversation/settings_dialog/key_value_container.tscn" id="1_sgtaj"]
+[ext_resource type="Script" path="res://gui/conversation/settings_dialog/category_container.gd" id="1_x1t4d"]
+[ext_resource type="PackedScene" uid="uid://buq3wv323v4o6" path="res://gui/conversation/settings_dialog/group_container.tscn" id="2_7n5f6"]
+
+[node name="CategoryContainer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x1t4d")
+key_value_tscn = ExtResource("1_sgtaj")
+group_tscn = ExtResource("2_7n5f6")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NodeContainer" type="VBoxContainer" parent="ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

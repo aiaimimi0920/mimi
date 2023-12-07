@@ -1,0 +1,16 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://df1hfk4y54yrw"]
+
+[ext_resource type="Script" path="res://external_service_adapter/free_ai_adapter/v1_0_0/modules/settings/General/ProxyPort.gd" id="1_gmgsd"]
+
+[resource]
+script = ExtResource("1_gmgsd")
+current = 55235
+default = 55235
+name = ""
+category = ""
+value_type = 2
+value_hint = 1
+value_hint_string = "1024,65536,1"
+show_visible = true
+show_name = "ProxyPort"
+show_ui = 7

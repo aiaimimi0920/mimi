@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://de1x3ww7wmcdv"]
+
+[ext_resource type="Script" path="res://gui/conversation/conversation_main_menu.gd" id="1_0i6nj"]
+
+[node name="ConversationMainMenu" type="PopupMenu"]
+visible = true
+script = ExtResource("1_0i6nj")
+
+[connection signal="id_pressed" from="." to="." method="_on_MainMenu_id_pressed"]

@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://dqauy7ar7gatu"]
+
+[ext_resource type="Texture2D" uid="uid://cmfmqxllixt88" path="res://icon.svg" id="1_gwosh"]
+[ext_resource type="Script" path="res://gui/conversation/conversation_message_container.gd" id="1_hvkj3"]
+[ext_resource type="PackedScene" uid="uid://dqett8pktlr15" path="res://gui/conversation/conversation_message.tscn" id="2_f87fv"]
+[ext_resource type="Texture2D" uid="uid://bxkudy6pdo2f1" path="res://resources/models_data/model_vignettes/gdbot_vignette.png" id="2_xh7tu"]
+
+[node name="ConversationMessageContainer" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 72.0
+grow_horizontal = 2
+script = ExtResource("1_hvkj3")
+
+[node name="LeftIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture = ExtResource("2_xh7tu")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="ConversationMessage" parent="." instance=ExtResource("2_f87fv")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RightIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+texture = ExtResource("1_gwosh")
+expand_mode = 1
+stretch_mode = 4

@@ -1,0 +1,155 @@
+[gd_scene load_steps=22 format=3 uid="uid://dqett8pktlr15"]
+
+[ext_resource type="Script" path="res://gui/conversation/conversation_message.gd" id="1_m0c6l"]
+[ext_resource type="PackedScene" uid="uid://pfxu6klk0jpm" path="res://gui/conversation/conversation_message_template/audio_template/audio_template.tscn" id="2_qb8xl"]
+[ext_resource type="PackedScene" uid="uid://c3cc2wlq54nlu" path="res://gui/conversation/conversation_message_template/audio_template/voice_audio_template.tscn" id="3_dyu4e"]
+[ext_resource type="Texture2D" uid="uid://bdegje7lmuftt" path="res://gui/common/icon/like-button-80x70.png" id="3_qf4jg"]
+[ext_resource type="PackedScene" uid="uid://wu1ip3x3teuu" path="res://gui/conversation/conversation_message_template/file_template/file_template.tscn" id="4_l7ij1"]
+[ext_resource type="Texture2D" uid="uid://bse3jpxkjn3ei" path="res://gui/common/icon/dislike-button-80x70.png" id="4_pmooe"]
+[ext_resource type="PackedScene" uid="uid://c2ta7yjjpx2yr" path="res://gui/conversation/conversation_message_template/image_template/image_template.tscn" id="5_5hs1m"]
+[ext_resource type="PackedScene" uid="uid://cpkglp03aqtyc" path="res://gui/conversation/conversation_message_template/input_form_template/input_form_template.tscn" id="6_52vei"]
+[ext_resource type="PackedScene" uid="uid://kcsws77q2tp3" path="res://gui/conversation/conversation_message_template/json_template/json_template.tscn" id="7_j75dc"]
+[ext_resource type="PackedScene" uid="uid://c3xcp1n24b0id" path="res://gui/conversation/conversation_message_template/quote_template/quote_template.tscn" id="8_t3wad"]
+[ext_resource type="PackedScene" uid="uid://5tishopgj7mt" path="res://gui/conversation/conversation_message_template/source_template/source_template.tscn" id="9_l8pje"]
+[ext_resource type="PackedScene" uid="uid://bo0gdigx6ftj4" path="res://gui/conversation/conversation_message_template/text_template/text_template.tscn" id="10_f27rv"]
+[ext_resource type="PackedScene" uid="uid://ctjdh2mjhks1" path="res://gui/conversation/conversation_message_template/text_template/stream_text_template.tscn" id="11_dsnsf"]
+[ext_resource type="Texture2D" uid="uid://bn5v61fbhblok" path="res://gui/common/icon/dialogue-box.png" id="11_unbt4"]
+[ext_resource type="Texture2D" uid="uid://cd8xacf8x5c4h" path="res://gui/common/icon/confirmation-panel-no-button.png" id="12_2hly2"]
+[ext_resource type="PackedScene" uid="uid://b5r8m2tiemcs4" path="res://gui/conversation/conversation_message_template/video_template/video_template.tscn" id="12_okuxv"]
+[ext_resource type="PackedScene" uid="uid://ch4cj3cxinawy" path="res://gui/conversation/conversation_message_template/xml_template/xml_template.tscn" id="13_42db7"]
+[ext_resource type="Texture2D" uid="uid://bnm821imb5los" path="res://gui/common/icon/confirmation-panel-yes-button.png" id="14_uyuxn"]
+
+[sub_resource type="Animation" id="4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
+[sub_resource type="Animation" id="5"]
+resource_name = "Showing"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0am6f"]
+_data = {
+"RESET": SubResource("4"),
+"Showing": SubResource("5")
+}
+
+[node name="ConversationMessage" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+script = ExtResource("1_m0c6l")
+use_modulate = Color(0, 1, 0, 1)
+not_use_modulate = Color(1, 0, 0, 1)
+audio_template = ExtResource("2_qb8xl")
+voice_audio_template = ExtResource("3_dyu4e")
+file_template = ExtResource("4_l7ij1")
+image_template = ExtResource("5_5hs1m")
+input_form_template = ExtResource("6_52vei")
+json_template = ExtResource("7_j75dc")
+quote_template = ExtResource("8_t3wad")
+source_template = ExtResource("9_l8pje")
+text_template = ExtResource("10_f27rv")
+stream_text_template = ExtResource("11_dsnsf")
+video_template = ExtResource("12_okuxv")
+xml_template = ExtResource("13_42db7")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("11_unbt4")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="Control" type="Control" parent="MarginContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NinePatchRect/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.7
+anchor_right = 0.9
+anchor_bottom = 0.5
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="like_button" type="TextureButton" parent="MarginContainer/NinePatchRect/Control/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("3_qf4jg")
+
+[node name="dislike_button" type="TextureButton" parent="MarginContainer/NinePatchRect/Control/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("4_pmooe")
+
+[node name="no_button" type="TextureButton" parent="MarginContainer/NinePatchRect/Control/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("12_2hly2")
+
+[node name="yes_button" type="TextureButton" parent="MarginContainer/NinePatchRect/Control/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("14_uyuxn")
+
+[node name="ContentMarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 48
+
+[node name="content_container" type="VBoxContainer" parent="MarginContainer/ContentMarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_0am6f")
+}
+
+[connection signal="toggled" from="MarginContainer/NinePatchRect/Control/HBoxContainer/like_button" to="." method="_on_like_button_toggled"]
+[connection signal="toggled" from="MarginContainer/NinePatchRect/Control/HBoxContainer/dislike_button" to="." method="_on_dislike_button_toggled"]
+[connection signal="pressed" from="MarginContainer/NinePatchRect/Control/HBoxContainer/no_button" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="MarginContainer/NinePatchRect/Control/HBoxContainer/yes_button" to="." method="_on_yes_button_pressed"]

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+enum C2SMAINPROTOCOL {
+	C_S_NONE = 0;
+	C_S_TEST = 1; //只是作为一个读取主协议字符串的定义，保持和主协议同一个名字即可
+}
+
+enum S2CMAINPROTOCOL {
+	S_C_NONE = 0;
+	S_C_TEST = 1; //只是作为一个读取主协议字符串的定义，保持和主协议同一个名字即可
+}
+
+enum C2SPROTOCOL {
+	C_S_NONE = 0;
+	C_S_TEST = 1001;
+}
+
+enum S2CPROTOCOL {
+	S_C_NONE = 0;
+	S_C_TEST = 2001;
+}
+
+message C_S_TEST {
+	int32 f1 = 1;
+	bytes f2 = 2;
+}
+
+message S_C_TEST {
+	int32 f1 = 1;
+	bytes f2 = 2;
+}
+

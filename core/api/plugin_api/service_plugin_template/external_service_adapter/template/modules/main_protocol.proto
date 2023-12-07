@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package main_protocol;
+
+enum C2SPROTOCOL {
+	C2SPROTOCOL_NONE = 0;
+	C_S_CHAT = 1010101; // chat sub protocol 
+}
+
+enum S2CPROTOCOL {
+	S2CPROTOCOL_NONE = 0;
+	S_C_CHAT = 2010101; // chat sub protocol 
+}
+
+message C2S {
+	int64 syncId = 1;
+	int64 server_syncId = 2;
+	int32 protocol = 3;
+	int32 sub_protocol = 4;
+	bytes content = 5;
+}
+
+message S2C {
+	int64 syncId = 1;
+	int64 server_syncId = 2;
+	int32 protocol = 3;
+	int32 sub_protocol = 4;
+	bytes content = 5;
+}

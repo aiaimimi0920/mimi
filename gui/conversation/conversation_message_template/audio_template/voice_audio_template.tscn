@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3cc2wlq54nlu"]
+
+[ext_resource type="Script" path="res://gui/conversation/conversation_message_template/audio_template/voice_audio_template.gd" id="1_s2cui"]
+[ext_resource type="Texture2D" uid="uid://blr65s7n8ro5f" path="res://gui/common/icon/quit-options-menu-button-background.png" id="2_hmfxe"]
+[ext_resource type="Texture2D" uid="uid://bthf1by7ghoxo" path="res://gui/common/icon/play-button.png" id="6_1ejfd"]
+[ext_resource type="Texture2D" uid="uid://o1b2s8jxu852" path="res://gui/common/icon/pause-button.png" id="7_5le46"]
+
+[node name="VoiceAudioTemplate" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 50)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_s2cui")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("2_hmfxe")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 25
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="NowTime" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "00:00"
+
+[node name="TimeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+editable = false
+
+[node name="TotalTime" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "03:26
+"
+
+[node name="PlayButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 4
+toggle_mode = true
+texture_normal = ExtResource("6_1ejfd")
+texture_pressed = ExtResource("7_5le46")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="audio_stream_player" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.05
+
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer3/PlayButton" to="." method="_on_play_button_toggled"]
+[connection signal="finished" from="audio_stream_player" to="." method="_on_audio_stream_player_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

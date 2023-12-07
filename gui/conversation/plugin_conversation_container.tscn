@@ -1,0 +1,69 @@
+[gd_scene load_steps=7 format=3 uid="uid://bkgiujufcxj8p"]
+
+[ext_resource type="Script" path="res://gui/conversation/plugin_conversation_container.gd" id="1_3thg1"]
+[ext_resource type="PackedScene" uid="uid://1aaun1avh5dy" path="res://gui/conversation/plugin_conversation_menu_bar.tscn" id="2_e5ctj"]
+[ext_resource type="PackedScene" uid="uid://qir6a16c2cst" path="res://gui/conversation/conversation.tscn" id="3_bbjtm"]
+[ext_resource type="PackedScene" uid="uid://de1x3ww7wmcdv" path="res://gui/conversation/conversation_main_menu.tscn" id="3_tufm5"]
+[ext_resource type="PackedScene" uid="uid://wdq1siho5iet" path="res://gui/conversation/conversation_about_dialog.tscn" id="5_slix3"]
+[ext_resource type="PackedScene" uid="uid://bvcxgk16py2wy" path="res://gui/conversation/settings_dialog/settings_dialog.tscn" id="6_uxfj2"]
+
+[node name="PluginConversationContainer" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3thg1")
+
+[node name="PluginConversationContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Menubar" parent="PluginConversationContainer" instance=ExtResource("2_e5ctj")]
+unique_name_in_owner = true
+layout_mode = 2
+_main_menu_path = NodePath("ConversationMainMenu")
+
+[node name="ConversationMainMenu" parent="PluginConversationContainer/Menubar" instance=ExtResource("3_tufm5")]
+unique_name_in_owner = true
+position = Vector2i(0, 38)
+visible = false
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PluginConversationContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+follow_focus = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PluginConversationContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 40
+
+[node name="Conversation" parent="PluginConversationContainer/ScrollContainer/MarginContainer" instance=ExtResource("3_bbjtm")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="ConversationAboutDialog" parent="PluginConversationContainer" instance=ExtResource("5_slix3")]
+unique_name_in_owner = true
+visible = false
+
+[node name="SettingsDialog" parent="PluginConversationContainer" instance=ExtResource("6_uxfj2")]
+unique_name_in_owner = true
+visible = false
+
+[connection signal="conversation_closed" from="PluginConversationContainer/Menubar" to="." method="_on_menubar_conversation_closed"]
+[connection signal="conversation_selected" from="PluginConversationContainer/Menubar" to="." method="_on_menubar_conversation_selected"]
+[connection signal="export_md" from="PluginConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_export_md"]
+[connection signal="open_about_dialog" from="PluginConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_about_dialog"]
+[connection signal="open_bug_tracker_url" from="PluginConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_bug_tracker_url"]
+[connection signal="open_manual_url" from="PluginConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_manual_url"]
+[connection signal="open_settings_dialog" from="PluginConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_settings_dialog"]
+[connection signal="child_entered_tree" from="PluginConversationContainer/ScrollContainer/MarginContainer/Conversation" to="." method="_on_conversation_child_entered_tree"]

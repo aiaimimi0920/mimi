@@ -1,0 +1,143 @@
+[gd_scene load_steps=12 format=3 uid="uid://wu1ip3x3teuu"]
+
+[ext_resource type="Script" path="res://gui/conversation/conversation_message_template/file_template/file_template.gd" id="1_pm44t"]
+[ext_resource type="Texture2D" uid="uid://blr65s7n8ro5f" path="res://gui/common/icon/quit-options-menu-button-background.png" id="2_b7gi5"]
+[ext_resource type="Texture2D" uid="uid://bnqn060jvik6r" path="res://gui/common/icon/file-button.png" id="4_are26"]
+[ext_resource type="Texture2D" uid="uid://bx60y70ekbcr5" path="res://gui/common/icon/download-button.png" id="5_a8cc1"]
+[ext_resource type="Texture2D" uid="uid://be40jsyntbnhr" path="res://gui/common/icon/folder-button.png" id="5_yqvdu"]
+[ext_resource type="Texture2D" uid="uid://o1b2s8jxu852" path="res://gui/common/icon/pause-button.png" id="7_i210s"]
+[ext_resource type="Texture2D" uid="uid://66ofams43f7a" path="res://gui/common/icon/small_dislike-button.png" id="8_2edyi"]
+[ext_resource type="Texture2D" uid="uid://10k32a1lfkcs" path="res://gui/common/icon/downloadbar_bg.png" id="8_mtd3d"]
+[ext_resource type="Texture2D" uid="uid://h7pbfndimqrh" path="res://gui/common/icon/small_like-button.png" id="9_7m625"]
+[ext_resource type="Texture2D" uid="uid://dkn68hg7rvcbx" path="res://gui/common/icon/downloadbar_frame.png" id="9_tkvtr"]
+[ext_resource type="Texture2D" uid="uid://hixba2fdduec" path="res://gui/common/icon/downloadbar_fill.png" id="10_40871"]
+
+[node name="FileTemplate" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 50)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 159.0
+grow_horizontal = 2
+script = ExtResource("1_pm44t")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("2_b7gi5")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 25
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="FileNameLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "文件名字"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+alignment = 1
+
+[node name="DownloadButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 4
+toggle_mode = true
+texture_normal = ExtResource("5_a8cc1")
+texture_pressed = ExtResource("7_i210s")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="FileButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("4_are26")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="FolderButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 4
+texture_normal = ExtResource("5_yqvdu")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="LikeButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+texture_normal = ExtResource("8_2edyi")
+texture_pressed = ExtResource("9_7m625")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+self_modulate = Color(0, 0.992157, 0.478431, 1)
+layout_mode = 2
+texture_under = ExtResource("8_mtd3d")
+texture_over = ExtResource("9_tkvtr")
+texture_progress = ExtResource("10_40871")
+
+[node name="FileSize" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer2/TextureProgressBar"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "2.00mb"
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.05
+
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer/DownloadButton" to="." method="_on_download_button_toggled"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer/FileButton" to="." method="_on_file_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer/FolderButton" to="." method="_on_folder_button_pressed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer/LikeButton" to="." method="_on_like_button_toggled"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

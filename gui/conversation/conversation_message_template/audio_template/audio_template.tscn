@@ -1,0 +1,225 @@
+[gd_scene load_steps=12 format=3 uid="uid://pfxu6klk0jpm"]
+
+[ext_resource type="Script" path="res://gui/conversation/conversation_message_template/audio_template/audio_template.gd" id="1_fiac8"]
+[ext_resource type="Texture2D" uid="uid://blr65s7n8ro5f" path="res://gui/common/icon/quit-options-menu-button-background.png" id="2_68qtq"]
+[ext_resource type="Texture2D" uid="uid://cmfmqxllixt88" path="res://icon.svg" id="3_urlah"]
+[ext_resource type="Texture2D" uid="uid://3ud04iusnfx8" path="res://gui/common/icon/single_loop-button.png" id="4_6whlq"]
+[ext_resource type="Texture2D" uid="uid://66ofams43f7a" path="res://gui/common/icon/small_dislike-button.png" id="4_7khuo"]
+[ext_resource type="Script" path="res://gui/conversation/conversation_message_template/audio_template/scroll_label.gd" id="4_m83ji"]
+[ext_resource type="Texture2D" uid="uid://h7pbfndimqrh" path="res://gui/common/icon/small_like-button.png" id="5_4tj6q"]
+[ext_resource type="Texture2D" uid="uid://bthf1by7ghoxo" path="res://gui/common/icon/play-button.png" id="6_286mn"]
+[ext_resource type="Texture2D" uid="uid://o1b2s8jxu852" path="res://gui/common/icon/pause-button.png" id="7_3bdin"]
+[ext_resource type="Texture2D" uid="uid://b8d4gmkk8anwb" path="res://gui/common/icon/volume-40x40-button.png" id="9_sm08j"]
+[ext_resource type="Texture2D" uid="uid://ca5sx3ah28hgc" path="res://gui/common/icon/mute-40x40-button.png" id="10_s7stm"]
+
+[node name="AudioTemplate" type="PanelContainer"]
+custom_minimum_size = Vector2(0, 50)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+script = ExtResource("1_fiac8")
+use_modulate = Color(0.223529, 0.45098, 1, 1)
+not_use_modulate = Color(1, 1, 1, 1)
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+self_modulate = Color(0, 0, 0, 1)
+layout_mode = 2
+texture = ExtResource("2_68qtq")
+patch_margin_left = 25
+patch_margin_top = 25
+patch_margin_right = 25
+patch_margin_bottom = 25
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="AlbumLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "专辑名字"
+
+[node name="SplitOne" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = " - "
+
+[node name="SongLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "歌曲名字"
+
+[node name="SplitTwo" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = " - "
+
+[node name="SignerLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "歌手名字"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SongTexture" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 120)
+layout_mode = 2
+texture = ExtResource("3_urlah")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="LyricContainer" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer"]
+clip_children = 2
+layout_mode = 2
+
+[node name="AllLyric" type="RichTextLabel" parent="MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/LyricContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="ScrollLyric" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/LyricContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 48
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("4_m83ji")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="LoopButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+texture_normal = ExtResource("4_6whlq")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="PlayButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+size_flags_vertical = 4
+toggle_mode = true
+texture_normal = ExtResource("6_286mn")
+texture_pressed = ExtResource("7_3bdin")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="LikeButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+texture_normal = ExtResource("4_7khuo")
+texture_pressed = ExtResource("5_4tj6q")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="MuteButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+texture_normal = ExtResource("9_sm08j")
+texture_pressed = ExtResource("10_s7stm")
+ignore_texture_size = true
+stretch_mode = 5
+
+[node name="VolumeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="NowTime" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "00:00"
+
+[node name="TimeSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="TotalTime" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "03:26
+"
+
+[node name="audio_stream_player" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.05
+
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/LyricContainer" to="." method="_on_lyric_container_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/LyricContainer" to="." method="_on_lyric_container_mouse_exited"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/LyricContainer/AllLyric" to="." method="_on_lyric_container_mouse_entered"]
+[connection signal="mouse_exited" from="MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/LyricContainer/AllLyric" to="." method="_on_lyric_container_mouse_exited"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer/LoopButton" to="." method="_on_loop_button_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_play_button_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer/LikeButton" to="." method="_on_like_button_toggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer2/MuteButton" to="." method="_on_mute_button_toggled"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/HBoxContainer2/HBoxContainer2/VBoxContainer/HBoxContainer2/VolumeSlider" to="." method="_on_h_slider_2_value_changed"]
+[connection signal="drag_ended" from="MarginContainer/VBoxContainer/HBoxContainer3/TimeSlider" to="." method="_on_time_slider_drag_ended"]
+[connection signal="drag_started" from="MarginContainer/VBoxContainer/HBoxContainer3/TimeSlider" to="." method="_on_time_slider_drag_started"]
+[connection signal="finished" from="audio_stream_player" to="." method="_on_audio_stream_player_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

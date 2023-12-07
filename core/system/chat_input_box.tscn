@@ -1,0 +1,215 @@
+[gd_scene load_steps=14 format=3 uid="uid://cnk7pba2ho5c7"]
+
+[ext_resource type="Script" path="res://core/system/chat_input_box.gd" id="1_fldat"]
+[ext_resource type="Texture2D" uid="uid://bn5v61fbhblok" path="res://gui/common/icon/dialogue-box.png" id="1_kwyl6"]
+[ext_resource type="Texture2D" uid="uid://cqen5uiq5bnix" path="res://gui/common/icon/left_expand_button.png" id="2_vgqvx"]
+[ext_resource type="Texture2D" uid="uid://2rtvw1fihbv6" path="res://gui/common/icon/search_internet-button.png" id="3_6sa8h"]
+[ext_resource type="Texture2D" uid="uid://b0d86jytjm717" path="res://gui/common/icon/use_plugin-button.png" id="3_l6dm7"]
+[ext_resource type="Texture2D" uid="uid://c0njknjuyn2bk" path="res://gui/common/icon/search_plugin_button.png" id="4_81ptc"]
+[ext_resource type="Texture2D" uid="uid://btf1jyq2aknk6" path="res://gui/common/icon/send-button.png" id="4_u5f7c"]
+[ext_resource type="Texture2D" uid="uid://cvdvst1s75pfi" path="res://gui/common/icon/unlock-button.png" id="5_bjw7n"]
+[ext_resource type="Texture2D" uid="uid://ilwkkqn3bfy1" path="res://gui/common/icon/lock-button.png" id="6_mf6ox"]
+[ext_resource type="Texture2D" uid="uid://cdwiieuujbl0x" path="res://gui/common/icon/search_document-button.png" id="8_02rhr"]
+[ext_resource type="Texture2D" uid="uid://5guffy0ohcx" path="res://gui/common/icon/right_expand_button.png" id="8_w3170"]
+
+[sub_resource type="Animation" id="Animation_mpnhc"]
+resource_name = "auto_free"
+length = 60.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 55, 60),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 60),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_drypy"]
+_data = {
+"auto_free": SubResource("Animation_mpnhc")
+}
+
+[node name="ChatInputBox" type="PanelContainer"]
+custom_minimum_size = Vector2(600, 0)
+offset_right = 600.0
+offset_bottom = 180.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_fldat")
+use_modulate = Color(0, 1, 0, 1)
+not_use_modulate = Color(1, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 180)
+layout_mode = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="MarginContainer"]
+layout_mode = 2
+texture = ExtResource("1_kwyl6")
+patch_margin_left = 20
+patch_margin_top = 20
+patch_margin_right = 20
+patch_margin_bottom = 20
+
+[node name="Head" type="Control" parent="MarginContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NinePatchRect/Head"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_right = 40.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="expand_main_conversation_info_button" type="TextureButton" parent="MarginContainer/NinePatchRect/Head/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("2_vgqvx")
+texture_pressed = ExtResource("8_w3170")
+flip_v = true
+
+[node name="Control2" type="Control" parent="MarginContainer/NinePatchRect/Head/HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="use_plugin_button" type="TextureButton" parent="MarginContainer/NinePatchRect/Head/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("3_l6dm7")
+
+[node name="search_internet_button" type="TextureButton" parent="MarginContainer/NinePatchRect/Head/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("3_6sa8h")
+
+[node name="search_plugin_button" type="TextureButton" parent="MarginContainer/NinePatchRect/Head/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("4_81ptc")
+
+[node name="search_document_button" type="TextureButton" parent="MarginContainer/NinePatchRect/Head/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("8_02rhr")
+
+[node name="Control" type="Control" parent="MarginContainer/NinePatchRect/Head/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+
+[node name="lock_input_button" type="TextureButton" parent="MarginContainer/NinePatchRect/Head/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("5_bjw7n")
+texture_pressed = ExtResource("6_mf6ox")
+
+[node name="Control3" type="Control" parent="MarginContainer/NinePatchRect/Head/HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="expand_plugin_conversation_info_button" type="TextureButton" parent="MarginContainer/NinePatchRect/Head/HBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("8_w3170")
+texture_pressed = ExtResource("2_vgqvx")
+flip_v = true
+
+[node name="Foot" type="Control" parent="MarginContainer/NinePatchRect"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/NinePatchRect/Foot"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.815
+anchor_right = 0.9
+anchor_bottom = 0.5
+offset_left = -0.210083
+offset_top = -35.0
+offset_right = 0.400024
+offset_bottom = 35.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="send_button" type="TextureButton" parent="MarginContainer/NinePatchRect/Foot/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("4_u5f7c")
+
+[node name="ContentMarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 48
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 48
+
+[node name="TextEdit" type="TextEdit" parent="MarginContainer/ContentMarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+wrap_mode = 1
+scroll_smooth = true
+scroll_fit_content_height = true
+caret_blink = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_drypy")
+}
+
+[connection signal="toggled_main_conversation_info_change_ui" from="." to="MarginContainer/NinePatchRect/Head/HBoxContainer/expand_main_conversation_info_button" method="set_pressed_no_signal"]
+[connection signal="toggled_plugin_conversation_info_change_ui" from="." to="MarginContainer/NinePatchRect/Head/HBoxContainer/expand_plugin_conversation_info_button" method="set_pressed_no_signal"]
+[connection signal="gui_input" from="MarginContainer" to="." method="active_self"]
+[connection signal="gui_input" from="MarginContainer/NinePatchRect" to="." method="active_self"]
+[connection signal="gui_input" from="MarginContainer/NinePatchRect/Head/HBoxContainer/expand_main_conversation_info_button" to="." method="active_self"]
+[connection signal="toggled" from="MarginContainer/NinePatchRect/Head/HBoxContainer/expand_main_conversation_info_button" to="." method="_on_expand_main_conversation_info_button_toggled"]
+[connection signal="gui_input" from="MarginContainer/NinePatchRect/Head/HBoxContainer/use_plugin_button" to="." method="active_self"]
+[connection signal="gui_input" from="MarginContainer/NinePatchRect/Head/HBoxContainer/search_internet_button" to="." method="active_self"]
+[connection signal="toggled" from="MarginContainer/NinePatchRect/Head/HBoxContainer/search_internet_button" to="." method="_on_search_internet_button_toggled"]
+[connection signal="gui_input" from="MarginContainer/NinePatchRect/Head/HBoxContainer/search_plugin_button" to="." method="active_self"]
+[connection signal="toggled" from="MarginContainer/NinePatchRect/Head/HBoxContainer/search_plugin_button" to="." method="_on_search_plugin_button_toggled"]
+[connection signal="gui_input" from="MarginContainer/NinePatchRect/Head/HBoxContainer/search_document_button" to="." method="active_self"]
+[connection signal="toggled" from="MarginContainer/NinePatchRect/Head/HBoxContainer/search_document_button" to="." method="_on_search_document_button_toggled"]
+[connection signal="gui_input" from="MarginContainer/NinePatchRect/Head/HBoxContainer/lock_input_button" to="." method="active_self"]
+[connection signal="toggled" from="MarginContainer/NinePatchRect/Head/HBoxContainer/lock_input_button" to="." method="_on_lock_input_button_toggled"]
+[connection signal="gui_input" from="MarginContainer/NinePatchRect/Head/HBoxContainer/expand_plugin_conversation_info_button" to="." method="active_self"]
+[connection signal="toggled" from="MarginContainer/NinePatchRect/Head/HBoxContainer/expand_plugin_conversation_info_button" to="." method="_on_expand_plugin_conversation_info_button_toggled"]
+[connection signal="gui_input" from="MarginContainer/NinePatchRect/Foot/HBoxContainer/send_button" to="." method="active_self"]
+[connection signal="pressed" from="MarginContainer/NinePatchRect/Foot/HBoxContainer/send_button" to="." method="_on_send_button_pressed"]
+[connection signal="gui_input" from="MarginContainer/ContentMarginContainer" to="." method="active_self"]
+[connection signal="gui_input" from="MarginContainer/ContentMarginContainer/TextEdit" to="." method="active_self"]
+[connection signal="resized" from="MarginContainer/ContentMarginContainer/TextEdit" to="." method="_on_text_edit_resized"]
