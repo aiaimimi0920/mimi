@@ -1,0 +1,9 @@
+# Sandbox folder (for testing in local machine)
+[Ss]andbox/
+
+# macOS-specific ignores
+.DS_Store
+
+# VSCode-specific ignores
+.vscode/
+
