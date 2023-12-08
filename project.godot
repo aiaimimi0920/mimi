@@ -1,0 +1,72 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="MiMi"
+run/main_scene="res://core/system/main.tscn"
+config/features=PackedStringArray("4.2", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 0)
+boot_splash/show_image=false
+config/icon="res://icon.svg"
+config/windows_native_icon="res://icon.ico"
+
+[audio]
+
+general/text_to_speech=true
+
+[autoload]
+
+FileManager="*res://core/modules/file_manager.gd"
+UpdateManager="*res://update/update_manager.gd"
+AuthorizeManager="*res://core/modules/authorize_manager.gd"
+Platform="*res://core/modules/platform.gd"
+Logger="*res://addons/gs_logger/logger.gd"
+PluginManager="*res://core/modules/plugin_manager.gd"
+GlobalManager="*res://core/modules/global_manager.gd"
+HttpRequestManager="*res://core/modules/http_request_manager.gd"
+ConversationMessageManager="*res://core/api/conversation_message_api/conversation_message_manager.gd"
+ConversationManager="*res://core/api/conversation_api/conversation_manager.gd"
+GGS="*res://addons/ggs/classes/global/ggs.tscn"
+ConfigManager="*res://core/modules/config_manager.gd"
+
+[debug]
+
+file_logging/enable_file_logging.pc=false
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/borderless=true
+window/size/always_on_top=true
+window/size/transparent=true
+window/per_pixel_transparency/allowed=true
+
+[editor]
+
+export/convert_text_resources_to_binary=false
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/ggs/plugin.cfg", "res://addons/gs_logger/plugin.cfg", "res://addons/protobuf/plugin.cfg")
+
+[input]
+
+ui_send={
+"deadzone": 0.5,
+"events": [null, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":true,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194309,"key_label":0,"unicode":0,"echo":false,"script":null)
+]
+}
+
+[rendering]
+
+viewport/transparent_background=true
+gl_compatibility/enable_file_logging.pc=true
