@@ -5,8 +5,8 @@
 [resource]
 resource_name = "ProxyHost"
 script = ExtResource("1_urfa5")
-current = "127.0.0.1"
-default = "127.0.0.1"
+current = ""
+default = ""
 name = "ProxyHost"
 category = "General"
 value_type = 4

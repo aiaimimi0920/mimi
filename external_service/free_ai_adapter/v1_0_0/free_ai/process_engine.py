@@ -94,10 +94,13 @@ class ProcessUnit:
             self.use_proxy = False
             await self.process_message(init_message)
             cur_ave_time = self.get_ave_time()
+
             init_message_with_proxy = Message(False, [{"role": "user", "content": self.BASE_CONTENT}], MessageLevel.MEDIUM, False)
+            
             self.use_proxy = True
             await self.process_message(init_message_with_proxy)
             cur_ave_time_with_proxy = self.get_ave_time()
+
             if cur_ave_time_with_proxy < cur_ave_time:
                 self.use_proxy = True
             else:
@@ -122,7 +125,8 @@ class ProcessUnit:
         interval_time = 0
         try:
             print(f"{self.provider_cls} processing message")
-            response = self.provider_cls.create_async_generator(model=None, messages = message.messages, stream = message.stream, timeout = 120, proxies = self.proxy)
+            response = self.provider_cls.create_async_generator(model=None, messages = message.messages, 
+                    stream = message.stream, timeout = 120, proxies = self.proxy if self.use_proxy else None)
             ## Let the caller handle this iterator
             message.response = response
             message.processed.set()
@@ -144,6 +148,7 @@ class ProcessUnit:
             self.set_total_time(self.get_total_time() + interval_time)
             self.set_ave_time(self.get_total_time() / self.get_count())
             self.is_running = False
+            print(f"{self.provider_cls} processed message finished, interval_time: {interval_time}, count: {self.get_count()}, total_time: {self.get_total_time()}, ave_time: {self.get_ave_time()}")
         
         ## After processing the message, check if there are any new messages that need to be processed. They have already been processed in the engine class
         MessageQueue().check_if_message_can_be_processed()
@@ -157,7 +162,7 @@ class ProcessEngine:
         self.non_running_process_unit_pool = [] # Contains all currently available and running ProcessUnits
         self.running_process_unit_pool = [] # Include all currently running ProcessUnits
         # Include all ProcessUnits, note that their size may be greater than non_running_process_unit_pool+running_process_unit_pool
-        self.process_unit_pool = [ProcessUnit(provider, self.proxy) for provider in self.get_providers()] 
+        self.process_unit_pool = [ProcessUnit(provider) for provider in self.get_providers()] 
         self.message_queue = MessageQueue()
 
         now_count = 0
@@ -360,6 +365,14 @@ class ProcessEngine:
                 
     
     async def check_if_message_can_be_processed(self):
+        for process in self.non_running_process_unit_pool:
+            if process.get_ave_time()>130 and process.get_count()>3:
+                await process.deactivate()
+                process.is_holding = False
+                self.non_running_process_unit_pool.remove(process)
+
+        heapq.heapify(self.non_running_process_unit_pool)
+
         ## If it is empty, theoretically it is impossible to flexibly expand, but here we still need to do a forced expansion
         if not self.non_running_process_unit_pool:
             await self.async_check_non_running_pool()

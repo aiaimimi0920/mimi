@@ -4,7 +4,7 @@ from . import musicdl_protocol_pb2 as sub_protocol_pb2
 from modules.protocol_handle import ProtocolHandle
 import six
 import asyncio
-from .mubertapi import musicdl
+from .musicdlapi import musicdl
 import os
 import sys
 import random

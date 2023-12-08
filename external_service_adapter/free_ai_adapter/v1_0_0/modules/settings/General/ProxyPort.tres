@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_gmgsd")
-current = 55235
-default = 55235
+current = 0
+default = 0
 name = ""
 category = ""
 value_type = 2
