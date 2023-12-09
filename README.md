@@ -120,19 +120,19 @@ The following list includes the projects this project is based on. When using th
   - Modify main_project and plugin_project in tools_dir/mklink.py to main_project_dir and plugin_project_dir. This script is used to synchronize the contents of the main project to the plugin directory through symbolic links.
 - Based on the plugin type:
   - Function plugin:
-    - GD script location: plugin_project_dir/plugin/your_plugin_name/version/
-    - Only the contents of the storage directory will be packaged during plugin packaging, no external content will be included.
-    - Template: core/api/plugin_api/plugin_template/template/ or other plugins.
+	- GD script location: plugin_project_dir/plugin/your_plugin_name/version/
+	- Only the contents of the storage directory will be packaged during plugin packaging, no external content will be included.
+	- Template: core/api/plugin_api/plugin_template/template/ or other plugins.
   - Base plugin:
-    - No external program required (pure GD development):
-      - GD script location: plugin_project_dir/external_service_adapter/your_plugin_name/version/
-      - Only the contents of the storage directory will be packaged during plugin packaging, no external content will be included.
-      - Template: core/api/plugin_api/service_plugin_no_program_template/external_service_adapter/template/ or other plugins.
-    - External program required (depends on other external programs or libraries):
-      - GD script location: plugin_project_dir/external_service_adapter/your_plugin_name/version/
-      - External program or library location: plugin_project_dir/external_service/your_plugin_name/version/
-      - Only the contents of the storage directories will be packaged during plugin packaging, no external content will be included. Note that if your external service includes procedural code, please delete it before packaging. For example, if your external program is an exe program developed in Python and you use external_service/your_plugin_name/version/ as the code storage location, you should only keep the external program in external_service/your_plugin_name/version/ during packaging and temporarily delete the original Python code. Otherwise, your Python code will also be packaged in the plugin package.
-      - Template: core/api/plugin_api/service_plugin_template/external_service_adapter/template/ or other plugins.
+	- No external program required (pure GD development):
+	  - GD script location: plugin_project_dir/external_service_adapter/your_plugin_name/version/
+	  - Only the contents of the storage directory will be packaged during plugin packaging, no external content will be included.
+	  - Template: core/api/plugin_api/service_plugin_no_program_template/external_service_adapter/template/ or other plugins.
+	- External program required (depends on other external programs or libraries):
+	  - GD script location: plugin_project_dir/external_service_adapter/your_plugin_name/version/
+	  - External program or library location: plugin_project_dir/external_service/your_plugin_name/version/
+	  - Only the contents of the storage directories will be packaged during plugin packaging, no external content will be included. Note that if your external service includes procedural code, please delete it before packaging. For example, if your external program is an exe program developed in Python and you use external_service/your_plugin_name/version/ as the code storage location, you should only keep the external program in external_service/your_plugin_name/version/ during packaging and temporarily delete the original Python code. Otherwise, your Python code will also be packaged in the plugin package.
+	  - Template: core/api/plugin_api/service_plugin_template/external_service_adapter/template/ or other plugins.
 - Plugin upload:
   - You can trigger the packaging and uploading process by running the main scene in the editor and entering the command "/packing_bot generate_plugin_file your_plugin_name".
 - Please note: This project does not require you to publicly disclose the source code of your plugin, so you can upload the plugin as a closed-source plugin. If you are interested in merging your plugin code into the plugin branch, we welcome it.
