@@ -37,10 +37,7 @@ func get_video_path():
 	if FileAccess.file_exists(cur_video_path):
 		return cur_video_path
 	if video_url:
-		cur_video_path = GlobalManager.file_path.path_join(video_url)
-		## TODO: If there are no files available locally, you can try downloading files from the network
-		if FileAccess.file_exists(cur_video_path):
-			return cur_video_path
+		return video_url
 	return ""
 
 

@@ -69,4 +69,4 @@ ui_send={
 [rendering]
 
 viewport/transparent_background=true
-gl_compatibility/enable_file_logging.pc=true
+gl_compatibility/enable_file_logging.pc=false

@@ -59,7 +59,12 @@ theme_override_constants/margin_bottom = 10
 
 [node name="VideoTextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 300)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+expand_mode = 1
+stretch_mode = 5
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -153,3 +158,4 @@ unique_name_in_owner = true
 [connection signal="drag_ended" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/TimeSlider" to="." method="_on_time_slider_drag_ended"]
 [connection signal="drag_started" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/TimeSlider" to="." method="_on_time_slider_drag_started"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="video_update" from="FFmpegMediaPlayer" to="." method="_on_ffmpeg_media_player_video_update"]

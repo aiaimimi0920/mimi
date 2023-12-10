@@ -13,7 +13,9 @@ func _on_play_button_toggled(toggled_on):
 		if %VideoStreamPlayer.paused == true:
 			%VideoStreamPlayer.paused = false
 		else:
+			init_stream()
 			%VideoStreamPlayer.play()
+			
 	else:
 		%Timer.stop()
 		%VideoStreamPlayer.paused = true
@@ -74,7 +76,6 @@ func _on_h_slider_2_value_changed(value):
 func _init_stream_player():
 	%VolumeSlider.value = last_play_volume_value
 	
-	
 func _on_audio_stream_player_finished():
 	%Timer.stop()
 	%PlayButton.set_pressed_no_signal(false)
@@ -100,7 +101,7 @@ var message = null
 func set_message(cur_message):
 	message = cur_message
 	set_video_name_info(message.video_name)
-	init_stream()
+	#init_stream()
 	
 ## Note that only the OGV format is supported, and other formats cannot be played properly
 func init_stream():
@@ -132,3 +133,13 @@ func _on_time_slider_drag_ended(value_changed):
 func _ready():
 	_init_stream_player()
 
+	test_message()
+
+func test_message():
+	var message111111111 = VideoConversationMessage.new("a_e_123_456")
+	message111111111.video_width = 200
+	message111111111.video_height = 200
+	message111111111.video_ref_path = r"C:\Users\Public\nas_home\galgame\addons\localization_example\Data\Video\video_en.ogv"
+	message111111111.video_name = "test1"
+	message111111111.video_id = "qqqq"
+	set_message(message111111111)
