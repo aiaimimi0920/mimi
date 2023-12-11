@@ -1,37 +1,77 @@
 extends PanelContainer
 
+var current_size: Vector2i = Vector2i(1, 1)
+var aspect: float
+var root_size:Vector2
+
+enum VideoPlayerType {NATIVE, FFMPEG}
+
+var use_type = VideoPlayerType.NATIVE
+
+
+var now_play_position:
+	get:
+		if use_type == VideoPlayerType.NATIVE:
+			return %NativeVideoStreamPlayer.stream_position
+		elif use_type == VideoPlayerType.FFMPEG:
+			return %FFmpegMediaPlayer.get_playback_position()
+
+var stream_length:
+	get:
+		if use_type == VideoPlayerType.NATIVE:
+			return %NativeVideoStreamPlayer.get_stream_length()
+		elif use_type == VideoPlayerType.FFMPEG:
+			return %FFmpegMediaPlayer.get_length()
+
+var player_paused:
+	set(val):
+		if use_type == VideoPlayerType.NATIVE:
+			%NativeVideoStreamPlayer.paused = val
+		elif use_type == VideoPlayerType.FFMPEG:
+			%FFmpegMediaPlayer.set_paused(val)
+	get:
+		if use_type == VideoPlayerType.NATIVE:
+			return %NativeVideoStreamPlayer.paused
+		elif use_type == VideoPlayerType.FFMPEG:
+			return %FFmpegMediaPlayer.is_paused()
+
+func player_play():
+	if use_type == VideoPlayerType.NATIVE:
+		%NativeVideoStreamPlayer.play()
+	elif use_type == VideoPlayerType.FFMPEG:
+		%FFmpegMediaPlayer.play()
+
+func player_stop():
+	if use_type == VideoPlayerType.NATIVE:
+		%NativeVideoStreamPlayer.stop()
+	elif use_type == VideoPlayerType.FFMPEG:
+		%FFmpegMediaPlayer.stop()
+
 func _on_play_button_toggled(toggled_on):
 	if toggled_on:
-		## download file
-		if message.get_video_path() == "":
-			message.begin_download()
-			await message.download_finish
-			init_stream()
-			if %PlayButton.button_pressed == false:
-				return 
 		%Timer.start()
-		if %VideoStreamPlayer.paused == true:
-			%VideoStreamPlayer.paused = false
+		if player_paused == true:
+			player_paused = false
 		else:
 			init_stream()
-			%VideoStreamPlayer.play()
-			
+			waiting_playing = true
+			changed_time_slider = true
+			player_play()
 	else:
 		%Timer.stop()
-		%VideoStreamPlayer.paused = true
+		player_paused = true
+		
 
-
-var total_stream_time
 func set_stream(stream):
-	%VideoStreamPlayer.stream = stream
-	var target_size = Vector2(message.video_width, message.video_height)
-	if target_size:
-		%VideoStreamPlayer.expand = true
-		%VideoStreamPlayer.custom_minimum_size = target_size
-	else:
-		%VideoStreamPlayer.expand = false
-	
-	total_stream_time = %VideoStreamPlayer.get_stream_length()
+	if use_type == VideoPlayerType.NATIVE:
+		%NativeVideoStreamPlayer.stream = stream
+	elif use_type == VideoPlayerType.FFMPEG:
+		%FFmpegMediaPlayer.load_path(stream)
+
+	if message.video_width and message.video_height:
+		root_size = Vector2(message.video_width, message.video_height)
+
+	var total_stream_time = stream_length
 	%TimeSlider.min_value = 0
 	%TimeSlider.max_value = total_stream_time
 	%TimeSlider.step = 1
@@ -39,7 +79,39 @@ func set_stream(stream):
 	%TotalTime.text = now_time_str
 
 func set_stream_volume(volume_data):
-	%VideoStreamPlayer.volume_db = linear_to_db(volume_data)
+	%AudioStreamPlayer.volume_db = linear_to_db(volume_data)
+
+var update_size_flag = false
+
+func _process(delta):
+	if update_size_flag:
+		_update_size()
+		
+
+func _update_size():
+	var show_node
+	if use_type == VideoPlayerType.NATIVE:
+		show_node = %NativeVideoStreamPlayer
+	elif use_type == VideoPlayerType.FFMPEG:
+		show_node = %FFmpegVideoTextureRect
+
+	aspect = float(current_size.x) / float(current_size.y)
+	var root_aspect = root_size.x / root_size.y
+	if root_size:
+		if current_size == Vector2i(1, 1):
+			show_node.custom_minimum_size = Vector2(root_size.x, root_size.y)
+			return	
+		if root_aspect > aspect:
+			# Fit height
+			show_node.custom_minimum_size = Vector2(root_size.y * aspect, root_size.y)
+		else:
+			# Fit width
+			show_node.custom_minimum_size = Vector2(root_size.x, root_size.x / aspect)
+	else:
+		show_node.custom_minimum_size = Vector2(current_size.x, current_size.y)
+		pass
+	update_size_flag = false
+
 
 
 ## 是否要加入喜欢的视频，暂时不做处理?
@@ -76,6 +148,9 @@ func _on_h_slider_2_value_changed(value):
 func _init_stream_player():
 	%VolumeSlider.value = last_play_volume_value
 	
+	%FFmpegMediaPlayer.set_player(%AudioStreamPlayer)
+	
+	
 func _on_audio_stream_player_finished():
 	%Timer.stop()
 	%PlayButton.set_pressed_no_signal(false)
@@ -88,58 +163,109 @@ func format_time_str(time_num):
 	var now_time_str = "%02d"%(int(now_time/60))+":"+"%02d"%(int(now_time%60))
 	return now_time_str
 
-
+var waiting_playing = false
+var last_play_position = 0
+var will_close = false
 ## Reset the current time of video every second
 func _on_timer_timeout():
-	var now_time = %VideoStreamPlayer.stream_position
+	var now_time = now_play_position
 	var now_time_str = format_time_str(now_time)
 	%NowTime.text = now_time_str
-	if not drag_started:
-		%TimeSlider.value = round(now_time)
+	if waiting_playing:
+		if not drag_started:
+			%TimeSlider.value = last_drag_time
+		if round(now_time)-3 <= last_drag_time and last_drag_time<=round(now_time)+3:
+			if now_time!=0:
+				waiting_playing = false
+	else:
+		if now_time==0:
+			if waiting_playing == false and changed_time_slider == false and will_close:
+				# need stop music
+				%PlayButton.set_pressed_no_signal(false)
+				player_stop()
+				%Timer.stop()
+				waiting_playing = false
+				last_drag_time = 0
+				if not drag_started:
+					%TimeSlider.value = 0
+				will_close = false
+				pass
+			else:
+				if not drag_started:
+					%TimeSlider.value = last_drag_time
+				
+		else:
+			if not drag_started:
+				%TimeSlider.value = round(now_time)
+			if changed_time_slider:
+				changed_time_slider = false
+			
+			if now_time>=stream_length-3:
+				will_close = true
+		
 
 var message = null
 func set_message(cur_message):
 	message = cur_message
 	set_video_name_info(message.video_name)
-	#init_stream()
 	
 ## Note that only the OGV format is supported, and other formats cannot be played properly
 func init_stream():
 	var cur_video_path = message.get_video_path()
-	var target_type = "OGV"
 	if cur_video_path != "":
-		if cur_video_path.get_extension().to_upper() == "OGV":
-			target_type = "OGV"
-			
-		var voice
-		if target_type == "OGV":
-			voice = VideoStreamTheora.new()
+		if cur_video_path.get_extension().to_upper() == "OGV" and not (cur_video_path.to_upper().begins_with("HTTP")):
+			use_type = VideoPlayerType.NATIVE
+			var voice = VideoStreamTheora.new()
 			voice.file = cur_video_path
-
-		set_stream(voice)
-	
+			set_stream(voice)
+		else:
+			use_type = VideoPlayerType.FFMPEG
+			set_stream(cur_video_path)
+			
 
 var drag_started = false
 func _on_time_slider_drag_started():
 	drag_started = true
 
 
-
+var last_drag_time = 0
+var changed_time_slider = false
 func _on_time_slider_drag_ended(value_changed):
 	if value_changed:
-		%VideoStreamPlayer.stream_position = %TimeSlider.value
+		if use_type == VideoPlayerType.NATIVE:
+			last_drag_time = %TimeSlider.value
+			%NativeVideoStreamPlayer.stream_position = %TimeSlider.value
+			waiting_playing = true
+			changed_time_slider = true
+		else:
+			if waiting_playing == false:
+				## because this: https://github.com/Elly2018/elly_videoplayer/issues/5
+				## so modification of progress bar is not allowed
+				last_drag_time = %TimeSlider.value
+				%FFmpegMediaPlayer.seek(%TimeSlider.value)
+				waiting_playing = true
+				changed_time_slider = true
 	drag_started = false
+
+func _on_ffmpeg_media_player_video_update(tex:Texture2D, size:Vector2i):
+	if current_size!=size:
+		update_size_flag = true
+		current_size = size
+	if (%FFmpegVideoTextureRect != null):
+		%FFmpegVideoTextureRect.set_deferred("texture", tex);
+
 
 func _ready():
 	_init_stream_player()
-
-	test_message()
+	#test_message()
 
 func test_message():
-	var message111111111 = VideoConversationMessage.new("a_e_123_456")
-	message111111111.video_width = 200
-	message111111111.video_height = 200
-	message111111111.video_ref_path = r"C:\Users\Public\nas_home\galgame\addons\localization_example\Data\Video\video_en.ogv"
-	message111111111.video_name = "test1"
-	message111111111.video_id = "qqqq"
-	set_message(message111111111)
+	var cur_message = VideoConversationMessage.new("a_e_123_456")
+	cur_message.video_width = 300
+	cur_message.video_height = 500
+	#cur_message.video_ref_path = r"C:\Users\xxx\Downloads\xxx.mp4"
+	#cur_message.video_ref_path = r"C:\Users\xxx\Downloads\video_en.ogv"
+	cur_message.video_url = r"http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4"
+	cur_message.video_name = "just_test"
+	cur_message.video_id = "test1"
+	set_message(cur_message)
