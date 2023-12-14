@@ -33,7 +33,7 @@ func reload_message():
 	return self
 	
 func get_as_text()->String:
-	return "[音乐"+ audio_name +"]"
+	return "[Audio"+ audio_name +"]"
 
 func get_audio_path():
 	if audio_ref_path:
@@ -43,10 +43,7 @@ func get_audio_path():
 	if FileAccess.file_exists(cur_audio_path):
 		return cur_audio_path
 	if audio_url:
-		cur_audio_path = GlobalManager.file_path.path_join(audio_url)
-		## TODO:If there are no files available locally, you can try downloading them from the network
-		if FileAccess.file_exists(cur_audio_path):
-			return cur_audio_path
+		return audio_url
 	return ""
 
 func get_audio_lyric_path():

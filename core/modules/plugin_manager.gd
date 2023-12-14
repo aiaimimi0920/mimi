@@ -867,8 +867,7 @@ func get_plugin_can_use_version(cur_plugin_name:String):
 	
 	return all_use_version
 
-
-func try_parse_chat_cmd(chat_cmd:String):
+func get_json_from_chat_cmd(chat_cmd:String):
 	## Match JSON instructions between `````` first
 	var chat_cmd_result = chat_cmd_regex.search(chat_cmd)
 	if chat_cmd_result:
@@ -876,9 +875,13 @@ func try_parse_chat_cmd(chat_cmd:String):
 	else:
 		chat_cmd_result = chat_cmd_minor_regex.search(chat_cmd)
 	if chat_cmd_result == null:
-		return 
+		return {}
 	var chat_cmd_str  = chat_cmd_result.get_string("chat_cmd")
 	var chat_cmd_data = JSON.parse_string(chat_cmd_str)
+	return chat_cmd_data
+
+func try_parse_chat_cmd(chat_cmd:String):
+	var chat_cmd_data = get_json_from_chat_cmd(chat_cmd)
 	if chat_cmd_data:
 		if chat_cmd_data.get("type","").to_lower() == "func":
 			var cur_plugin_name = chat_cmd_data.get("plugin name",chat_cmd_data.get("plugin_name",""))

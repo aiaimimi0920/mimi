@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://wdq1siho5iet"]
+[gd_scene load_steps=3 format=3 uid="uid://wdq1siho5iet"]
 
-[ext_resource type="Texture2D" uid="uid://cmfmqxllixt88" path="res://icon.svg" id="1_8bwyw"]
 [ext_resource type="Script" path="res://gui/conversation/conversation_about_dialog.gd" id="1_8obvk"]
 [ext_resource type="Texture2D" uid="uid://dvtx6j1xg685a" path="res://gui/common/icons/close.png" id="3_7a3kh"]
 
@@ -44,7 +43,6 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-texture = ExtResource("1_8bwyw")
 expand_mode = 1
 stretch_mode = 5
 

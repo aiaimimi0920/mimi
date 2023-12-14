@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://ctjdh2mjhks1" path="res://gui/conversation/conversation_message_template/text_template/stream_text_template.tscn" id="11_dsnsf"]
 [ext_resource type="Texture2D" uid="uid://bn5v61fbhblok" path="res://gui/common/icon/dialogue-box.png" id="11_unbt4"]
 [ext_resource type="Texture2D" uid="uid://cd8xacf8x5c4h" path="res://gui/common/icon/confirmation-panel-no-button.png" id="12_2hly2"]
-[ext_resource type="PackedScene" uid="uid://cepw0tu4k32r7" path="res://gui/conversation/conversation_message_template/video_template/video_template.tscn" id="12_okuxv"]
+[ext_resource type="PackedScene" uid="uid://c1pvtbbbiiq5b" path="res://gui/conversation/conversation_message_template/video_template/video_template.tscn" id="12_okuxv"]
 [ext_resource type="PackedScene" uid="uid://ch4cj3cxinawy" path="res://gui/conversation/conversation_message_template/xml_template/xml_template.tscn" id="13_42db7"]
 [ext_resource type="Texture2D" uid="uid://bnm821imb5los" path="res://gui/common/icon/confirmation-panel-yes-button.png" id="14_uyuxn"]
 

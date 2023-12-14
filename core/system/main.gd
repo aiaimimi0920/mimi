@@ -112,11 +112,7 @@ func fit_global_position():
 	# Make certain coordinate updates
 	if %ChatInputBox.visible and min_begin and max_begin:
 		var last_min_begin = min_begin
-		last_min_begin.x = max(last_min_begin.x,min_chat_begin.x)
-		last_min_begin.y = max(last_min_begin.y,min_chat_begin.y)
-		if %ConversationContainer.visible:
-			last_min_begin.x = max(last_min_begin.x,min_main_begin.x)
-			last_min_begin.y = max(last_min_begin.y,min_main_begin.y)
+
 		if %PluginConversationContainer.visible:
 			last_min_begin.x = max(last_min_begin.x,min_plugin_begin.x)
 			last_min_begin.y = max(last_min_begin.y,min_plugin_begin.y)

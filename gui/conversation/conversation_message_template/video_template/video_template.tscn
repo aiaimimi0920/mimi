@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cepw0tu4k32r7"]
+[gd_scene load_steps=9 format=3 uid="uid://c1pvtbbbiiq5b"]
 
 [ext_resource type="Script" path="res://gui/conversation/conversation_message_template/video_template/video_template.gd" id="1_hgirj"]
 [ext_resource type="Texture2D" uid="uid://blr65s7n8ro5f" path="res://gui/common/icon/quit-options-menu-button-background.png" id="2_2lv2k"]
@@ -57,16 +57,7 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="FFmpegVideoTextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 300)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-expand_mode = 1
-stretch_mode = 5
-
-[node name="NativeVideoStreamPlayer" type="VideoStreamPlayer" parent="MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer"]
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -151,17 +142,11 @@ text = "03:26
 unique_name_in_owner = true
 wait_time = 0.05
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
-
-[node name="FFmpegMediaPlayer" type="FFmpegMediaPlayer" parent="."]
-unique_name_in_owner = true
-
-[connection signal="toggled" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_play_button_toggled"]
+[connection signal="finished" from="MarginContainer/VBoxContainer/HBoxContainer2/MarginContainer/VideoStreamPlayer" to="." method="_on_video_stream_player_finished"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="play_pause_trigger"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/LikeButton" to="." method="_on_like_button_toggled"]
 [connection signal="toggled" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/MuteButton" to="." method="_on_mute_button_toggled"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer2/VolumeSlider" to="." method="_on_h_slider_2_value_changed"]
 [connection signal="drag_ended" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/TimeSlider" to="." method="_on_time_slider_drag_ended"]
 [connection signal="drag_started" from="MarginContainer/VBoxContainer/VBoxContainer/HBoxContainer3/TimeSlider" to="." method="_on_time_slider_drag_started"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="video_update" from="FFmpegMediaPlayer" to="." method="_on_ffmpeg_media_player_video_update"]

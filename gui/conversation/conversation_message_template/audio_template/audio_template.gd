@@ -3,52 +3,69 @@ extends PanelContainer
 @export var use_modulate:Color
 @export var not_use_modulate:Color
 
-func _on_loop_button_toggled(toggled_on):
+func play_pause_trigger(toggled_on):
 	if toggled_on:
-		%LoopButton.modulate = use_modulate
+		play_trigger()
 	else:
-		%LoopButton.modulate = not_use_modulate
-	
+		pause_trigger()
+
+func pause_trigger():
+	%Timer.stop()
+	%AudioStreamPlayer.stream_paused = true
+
+func play_trigger():
+	%Timer.start()
+	if %AudioStreamPlayer.stream_paused:
+		%AudioStreamPlayer.stream_paused = false
+	else:
+		init_stream()
+		%AudioStreamPlayer.play()
+
+func stop_trigger():
+	%Timer.stop()
+	%AudioStreamPlayer.stop()
 
 
-func _on_play_button_toggled(toggled_on):
-	if toggled_on:
-		## download file
-		if message.get_audio_path() == "":
-			message.begin_download()
-			await message.download_finish
-			init_stream()
-			if %PlayButton.button_pressed == false:
-				return 
-		%Timer.start()
-		if %audio_stream_player.stream_paused == true:
-			%audio_stream_player.stream_paused = false
+func init_stream():
+	if %AudioStreamPlayer.stream:
+		return 
+	var cur_audio_path = message.get_audio_path()
+	if cur_audio_path != "":
+		if cur_audio_path.get_extension().to_upper() == "OGG" and not (cur_audio_path.to_upper().begins_with("HTTP")):
+			var voice = AudioStreamOggVorbis.new()
+			voice = AudioStreamOggVorbis.load_from_buffer(message.get_audio_buffer_data())
+			set_stream(voice)
+		elif cur_audio_path.get_extension().to_upper() == "MP3" and not (cur_audio_path.to_upper().begins_with("HTTP")):
+			var voice = AudioStreamMP3.new()
+			voice.data = message.get_audio_buffer_data()
+			set_stream(voice)
 		else:
-			%audio_stream_player.play()
-	else:
-		%Timer.stop()
-		%audio_stream_player.stream_paused = true
+			var voice = FFmpegAudioStream.new()
+			voice.file = cur_audio_path
+			set_stream(voice)
 
-
-var total_stream_time
 func set_stream(stream):
-	%audio_stream_player.stream = stream
-	total_stream_time = %audio_stream_player.stream.get_length()
+	%AudioStreamPlayer.stream = stream
+	update_show_time()
+			
+func update_show_time():
+	var total_stream_time = %AudioStreamPlayer.stream.get_length()
 	%TimeSlider.min_value = 0
 	%TimeSlider.max_value = total_stream_time
 	%TimeSlider.step = 1
 	var now_time_str = format_time_str(total_stream_time)
 	%TotalTime.text = now_time_str
+	if total_stream_time == 0:
+		await get_tree().create_timer(1).timeout
+		update_show_time()
 
 func set_stream_volume(volume_data):
-	%audio_stream_player.volume_db = linear_to_db(volume_data)
+	%AudioStreamPlayer.volume_db = linear_to_db(volume_data)
 
-
-## Do you want to add your favorite music?
+## 是否要加入喜欢的视频，暂时不做处理?
 ## TODO
 func _on_like_button_toggled(toggled_on):
 	pass # Replace with function body.
-
 
 var last_mute_volume_value = 0.5
 ## Record the last time when pressed, but do not record normal changes
@@ -58,7 +75,7 @@ func _on_mute_button_toggled(toggled_on):
 		%VolumeSlider.value = 0
 	else:
 		%VolumeSlider.value = last_mute_volume_value
-		
+
 
 var last_play_volume_value = last_mute_volume_value
 ## Set playback volume
@@ -76,18 +93,16 @@ func _on_h_slider_2_value_changed(value):
 		%MuteButton.set_pressed_no_signal(true)
 
 
-
 func _init_stream_player():
 	%VolumeSlider.value = last_play_volume_value
-	
-	
+
 func _on_audio_stream_player_finished():
 	if %LoopButton.button_pressed == true:
-		%Timer.start()
-		%audio_stream_player.play()
+		play_trigger()
 	else:
 		%Timer.stop()
 		%PlayButton.set_pressed_no_signal(false)
+
 
 func set_audio_name_info(album_name = "",song_name = "",signer_name = ""):
 	%AlbumLabel.visible = album_name!=""
@@ -107,37 +122,9 @@ func format_time_str(time_num):
 	return now_time_str
 
 
-## Reset the current time of music every second
-func _on_timer_timeout():
-	var now_time = %audio_stream_player.get_playback_position()
-	var now_time_str = format_time_str(now_time)
-	%NowTime.text = now_time_str
-	if not drag_started:
-		%TimeSlider.value = round(now_time)
-	var lryic_time = now_time*60
-	if next_lyric_index<audio_lyric_map.size():
-		while lryic_time>=audio_lyric_map[next_lyric_index].time:
-			if next_lyric_index<audio_lyric_map.size():
-				if lryic_time<audio_lyric_map[next_lyric_index+1].time:
-					## Switch to this display line
-					%ScrollLyric.set_scroll_text(audio_lyric_map[next_lyric_index].content)
-					next_lyric_index = next_lyric_index + 1
-					break
-				else:
-					## the middle attribute should be ignored
-					## This logic should not be reached. If it occurs, it is likely that the timeout is too fast
-					next_lyric_index = next_lyric_index + 1
-					pass
-			else:
-				%ScrollLyric.set_scroll_text(audio_lyric_map[next_lyric_index].content)
-				next_lyric_index = 0
-				break
-
-
 func set_audio_texture(cur_texture):
 	%SongTexture.texture = cur_texture
 	pass
-
 
 var audio_lyric = ""
 var audio_lyric_map = []
@@ -177,35 +164,6 @@ func set_audio_lyric(cur_audio_lyric):
 	
 	%AllLyric.text = audio_all_lyric
 
-var message = null
-func set_message(cur_message):
-	message = cur_message
-	set_audio_name_info("",message.audio_name, message.audio_singer)
-	set_audio_texture(message.get("audio_texture"))
-	set_audio_lyric(message.get_audio_lyric_buffer_data().get_string_from_utf8())
-	init_stream()
-	
-func init_stream():
-	var cur_audio_path = message.get_audio_path()
-	var target_type = "MP3"
-	if cur_audio_path != "":
-		if cur_audio_path.get_extension().to_upper() == "OGG":
-			target_type = "OGG"
-		elif cur_audio_path.get_extension().to_upper() == "MP3":
-			target_type = "MP3"
-			
-		var voice
-		if target_type == "OGG":
-			voice = AudioStreamOggVorbis.new()
-			voice = AudioStreamOggVorbis.load_from_buffer(message.get_audio_buffer_data())
-		else:
-			voice = AudioStreamMP3.new()
-			voice.data = message.get_audio_buffer_data()
-
-		## Note that time will use the actual length of the file being used, rather than using the time of the message
-		set_stream(voice)
-	
-
 func _on_lyric_container_mouse_entered():
 	%AllLyric.visible = true
 	%ScrollLyric.visible = false
@@ -218,17 +176,51 @@ func _on_lyric_container_mouse_exited():
 		%AllLyric.visible = false
 		%ScrollLyric.visible = true
 
+var message = null
+func set_message(cur_message):
+	message = cur_message
+	set_audio_name_info("",message.audio_name, message.audio_singer)
+	set_audio_texture(message.get("audio_texture"))
+	set_audio_lyric(message.get_audio_lyric_buffer_data().get_string_from_utf8())
+
 var drag_started = false
 func _on_time_slider_drag_started():
 	drag_started = true
 
 
+
 func _on_time_slider_drag_ended(value_changed):
 	if value_changed:
-		%audio_stream_player.seek(%TimeSlider.value)
-		next_lyric_index = 0
+		%AudioStreamPlayer.seek(%TimeSlider.value)
 	drag_started = false
 
+## Reset the current time of audio every second
+func _on_timer_timeout():
+	var now_time = %AudioStreamPlayer.get_playback_position()
+	var now_time_str = format_time_str(now_time)
+	%NowTime.text = now_time_str
+	if not drag_started:
+		%TimeSlider.value = round(now_time)
+
+
+func _on_loop_button_toggled(toggled_on):
+	if toggled_on:
+		%LoopButton.modulate = use_modulate
+	else:
+		%LoopButton.modulate = not_use_modulate
+	
+
+	
 func _ready():
 	_init_stream_player()
+	#test_message()
 
+func test_message():
+	var cur_message = AudioConversationMessage.new("a_e_123_456")
+	#cur_message.audio_ref_path = r"C:\Users\xxx\AppData\Roaming\Godot\app_userdata\MiMi\main\file\1.mp3"
+	#cur_message.audio_ref_path = r"C:\Users\xxx\Downloads\trailer.mp4"
+	cur_message.audio_url = r"https://media.w3.org/2010/05/sintel/trailer.mp4"
+	cur_message.audio_name = "just_test_song"
+	cur_message.audio_singer = "just_test_singer"
+	cur_message.audio_id = "test1"
+	set_message(cur_message)

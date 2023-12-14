@@ -37,3 +37,5 @@ mono_crash.*.json
 /external_service/
 /external_service_adapter/
 /plugin/
+
+!*.dll

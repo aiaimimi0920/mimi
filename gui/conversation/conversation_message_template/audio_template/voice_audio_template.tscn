@@ -65,13 +65,13 @@ texture_pressed = ExtResource("7_5le46")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="audio_stream_player" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 
 [node name="Timer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 0.05
 
-[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer3/PlayButton" to="." method="_on_play_button_toggled"]
-[connection signal="finished" from="audio_stream_player" to="." method="_on_audio_stream_player_finished"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/HBoxContainer3/PlayButton" to="." method="play_pause_trigger"]
+[connection signal="finished" from="AudioStreamPlayer" to="." method="_on_audio_stream_player_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
