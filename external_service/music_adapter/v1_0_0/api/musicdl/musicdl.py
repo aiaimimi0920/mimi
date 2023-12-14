@@ -1,5 +1,5 @@
 from singleton import SingletonType
-import soundfile as sf
+# import soundfile as sf
 from . import musicdl_protocol_pb2 as sub_protocol_pb2
 from modules.protocol_handle import ProtocolHandle
 import six
@@ -69,6 +69,12 @@ class MyMusic(object):
         songinfos = []
         for key, values in search_results.items():
             for value in values:
+                duration_array = value['duration'].split(":")
+                duration_sum = 0
+                duration_array = [0 if cur_duration=="-" else int(cur_duration) for cur_duration in duration_array]
+                duration_sum = duration_array[0]*3600+duration_array[1]*60+duration_array[2]
+                if duration_sum<=30 and duration_sum!=0:
+                    continue
                 songinfos.append({
                     "songName": value['songname'],
                     "singer": value['singers'],
@@ -91,16 +97,11 @@ class MyMusic(object):
         elif self.songMap.get(song_key,None)!=None:
             download_info = self.songMap[song_key]
 
-        if data.get("just_mp3",True) and download_info:
-            if not download_info.get("downloadUrl","").endswith(".mp3"):
-                download_info = None
 
         if download_info == None:
             ## need auto search
             songinfos = self.search_music(data, music)
-            if data.get("just_mp3",False):
-                songinfos = [info for info in songinfos if (info.get("ext","")=="mp3" or info.get("downloadUrl","").endswith(".mp3"))]
-            
+
             random.shuffle(songinfos)
             for info in songinfos:
                 download_info = self.urlMap[info["downloadUrl"]]
@@ -140,20 +141,16 @@ class MyMusic(object):
         data = {}
         if download_info != None:
             savepath = os.path.join(download_info['savedir'], f"{download_info['savename']}.{download_info['ext']}")
-            lastsavepath = os.path.join(download_info['savedir'], f"{download_info['savename']}.mp3")
+            # lastsavepath = os.path.join(download_info['savedir'], f"{download_info['savename']}.mp3")
             data["sourceUrl"] = download_info["download_url"]
-            data["filePath"] = lastsavepath
-            if savepath!=lastsavepath:
-                try:
-                    read_data, samplerate = sf.read(savepath)
-                    sf.write(lastsavepath, read_data, samplerate, format="mp3")
-                    os.remove(savepath)
-                except Exception as e:
-                    if content.get("just_mp3",False):
-                        await self.S_C_DOWNLOAD_MUSIC(client, syncId, {})
-                        return 
-                    content["just_mp3"] = True 
-                    return await self.C_S_DOWNLOAD_MUSIC(client, syncId, content)
+            data["filePath"] = savepath
+            # if savepath!=lastsavepath:
+            #     try:
+            #         read_data, samplerate = sf.read(savepath)
+            #         sf.write(lastsavepath, read_data, samplerate, format="mp3")
+            #         os.remove(savepath)
+            #     except Exception as e:
+            #         pass
             # data["audio64"] = base64.b64encode(fix_data_output.getvalue()).decode()
             data["songName"] = download_info.get("songname","unknown")
             data["singer"] = download_info.get("singers","unknown")

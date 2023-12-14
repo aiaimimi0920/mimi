@@ -212,5 +212,7 @@ def musicdlcmd(keyword, logfilepath, proxies, savedir, count, targets):
 if __name__ == '__main__':
     import os
     rootdir = os.path.split(os.path.abspath(__file__))[0]
-    dl_client = musicdl(os.path.join(rootdir, 'config.json'))
+
+    config = {'logfilepath': 'musicdl.log','savedir': "downolad", 'search_size_per_source': 10, 'proxies': {}}
+    dl_client = musicdl(config=config)
     dl_client.run()

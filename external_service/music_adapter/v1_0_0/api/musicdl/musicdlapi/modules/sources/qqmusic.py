@@ -40,6 +40,7 @@ class QQMusic(Base):
         all_items = response.json()['req_0']['data']['body']['song']['list']
         songinfos = []
         for item in all_items:
+            # print("item:",item)
             params = {
                 'guid': str(random.randrange(1000000000, 10000000000)),
                 'loginUin': '3051522991',

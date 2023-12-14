@@ -103,7 +103,8 @@ class Netease(Base):
                 'duration': seconds2hms(duration)
             }
             if not songinfo['album']: songinfo['album'] = '-'
-            songinfos.append(songinfo)
+            if int(item.get("fee",0))==0:
+                songinfos.append(songinfo)
         return songinfos
     '''初始化'''
     def __initialize(self):
