@@ -12,7 +12,7 @@ func get_music_adapter():
 func _on_init()->void:
 	super._on_init()
 	set_plugin_info(plugin_name,"music_bot","mimi",plugin_version,
-		"Provide music search, music download, and music generation services","plugin",{"music_adapter":["v1_0_0"]})
+		"Provide music search, music download, and music generation services","plugin",{"music_adapter":["v1_0_1"]})
 	Logger.add_file_appender_by_name_path(PluginManager.get_plugin_log_path(plugin_name), plugin_name)
 	var cur_new_conversation = ConversationManager.get_conversation_by_plugin_name(plugin_name, true)
 
