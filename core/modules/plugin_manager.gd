@@ -222,7 +222,7 @@ func load_plugin_by_name_version(cur_plugin_name,cur_plugin_version=-1,files_dic
 	if file_dir == "":
 		## There is no local version, download one now
 		printt("download plugin ",cur_plugin_name)
-		var download_version = await get_plugin("update_bot").download_load_plugin_pck(cur_plugin_name)
+		var download_version = await get_plugin("update_bot").download_load_plugin_pck(cur_plugin_name, cur_plugin_version, cur_plugin_version)
 		printt("download plugin finish", cur_plugin_name, download_version)
 		return await load_plugin_by_name_version(cur_plugin_name, download_version, files_dic, source)
 	return await load_plugin(file_dir,files_dic,source)

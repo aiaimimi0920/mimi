@@ -72,8 +72,8 @@ func _on_conversation_main_menu_open_about_dialog():
 	cur_data["version"] = "v1_0_0"
 	cur_data["author"] = "aiaimimi0920"
 	cur_data["description"] = "Mimi is a private AI that can do many things for you, free of charge, completely yours. In summary, having fun"
-	cur_data["dependency"] = {"free_ai_bot":["v1_0_0"], "update_bot":["v1_0_0"]}
-	cur_data["use_dependency_version"] = {"free_ai_bot":"v1_0_0", "update_bot":"v1_0_0"}
+	cur_data["dependency"] = {"free_ai_bot":["v1_0_0"], "update_bot":["v1_0_1"]}
+	cur_data["use_dependency_version"] = {"free_ai_bot":"v1_0_0", "update_bot":"v1_0_1"}
 	%ConversationAboutDialog.data = cur_data
 
 

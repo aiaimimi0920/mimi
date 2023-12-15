@@ -98,7 +98,8 @@ func update_content(content_id, content_name=null,ban=null,anonymous_search_leve
 
 func get_plugin_info(plugin_name,min_version:int=0,max_version:int=1000000000):
 	var url = base_url.path_join("content/plugin/{plugin_name}".format({"plugin_name":plugin_name}))
-	var data = {"min_version":min_version,"max_version":max_version}
+	var data = ["min_version=%s"%min_version,"max_version=%s"%max_version]
+	url = url + "?" + "&".join(data)
 	return await platform_request(url)
 
 func platform_request(url, data = null):
