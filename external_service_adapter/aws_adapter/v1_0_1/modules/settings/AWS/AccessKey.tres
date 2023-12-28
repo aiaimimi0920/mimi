@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://cst5tuekf4man"]
+
+[ext_resource type="Script" path="res://external_service_adapter/aws_adapter/v1_0_1/modules/settings/AWS/AccessKey.gd" id="1_xbhju"]
+
+[resource]
+resource_name = "AccessKey"
+script = ExtResource("1_xbhju")
+current = ""
+default = ""
+name = "AccessKey"
+category = "AWS"
+value_type = 4
+value_hint = 0
+value_hint_string = ""
+show_visible = true
+show_name = "AccessKey"
+show_ui = 9

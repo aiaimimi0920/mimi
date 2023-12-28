@@ -39,7 +39,6 @@ mono_crash.*.json
 
 # Main-project ignores
 /export_presets.cfg
-/icon.svg
 /addons
 /core
 /game_settings

@@ -15,8 +15,6 @@ run/main_scene="res://core/system/main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 0)
 boot_splash/show_image=false
-config/icon="res://icon.svg"
-config/windows_native_icon="res://icon.ico"
 
 [audio]
 
@@ -69,4 +67,4 @@ ui_send={
 [rendering]
 
 viewport/transparent_background=true
-gl_compatibility/enable_file_logging.pc=true
+gl_compatibility/enable_file_logging.pc=false

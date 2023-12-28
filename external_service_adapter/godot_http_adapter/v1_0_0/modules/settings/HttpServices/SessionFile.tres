@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://btckd27v65bbx"]
+
+[ext_resource type="Script" path="res://external_service_adapter/godot_http_adapter/v1_0_0/modules/settings/HttpServices/SessionFile.gd" id="1_i3ixx"]
+
+[resource]
+resource_name = "SessionFile"
+script = ExtResource("1_i3ixx")
+current = null
+default = null
+name = "SessionFile"
+category = "HttpServices"
+value_type = 4
+value_hint = 0
+value_hint_string = ""
+show_visible = true
+show_name = "ENDPOINT"
+show_ui = 9

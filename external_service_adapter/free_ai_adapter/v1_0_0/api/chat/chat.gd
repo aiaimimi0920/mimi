@@ -222,7 +222,6 @@ class StreamRequest extends Node:
 	func just_get_content_from_line_str(line):
 		if line.begins_with("data: "):
 			var cur_line = line.trim_prefix("data: ")
-			printt("cur_line",cur_line)
 			if cur_line.begins_with("[DONE]"):
 				return ""
 			var cur_data = JSON.parse_string(cur_line)
@@ -233,6 +232,5 @@ class StreamRequest extends Node:
 		return ""
 	
 	func just_get_content_from_all_str(text):
-		printt("text",text)
 		var cur_data = JSON.parse_string(text)
 		return cur_data["choices"][0]["message"]["content"]

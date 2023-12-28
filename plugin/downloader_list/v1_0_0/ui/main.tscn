@@ -1,0 +1,348 @@
+[gd_scene load_steps=13 format=3 uid="uid://b03yqbkmoequo"]
+
+[ext_resource type="Script" path="res://plugin/downloader_list/v1_0_0/ui/main.gd" id="1_1sox0"]
+[ext_resource type="Texture2D" uid="uid://cfiqbddo5b2n7" path="res://plugin/downloader_list/v1_0_0/ui/assets/task-start-line.svg" id="2_ffgom"]
+[ext_resource type="Texture2D" uid="uid://csw7h4x6ljb1b" path="res://plugin/downloader_list/v1_0_0/ui/assets/menu-add.svg" id="2_xooy5"]
+[ext_resource type="Texture2D" uid="uid://b6rxffhhkplj4" path="res://plugin/downloader_list/v1_0_0/ui/assets/delete.svg" id="3_80flq"]
+[ext_resource type="Texture2D" uid="uid://brjwg7yx3m2p" path="res://plugin/downloader_list/v1_0_0/ui/assets/task-pause-line.svg" id="3_dxyxy"]
+[ext_resource type="Texture2D" uid="uid://dc3sg003wkmrm" path="res://plugin/downloader_list/v1_0_0/ui/assets/speedometer.svg" id="3_yrk3b"]
+[ext_resource type="Texture2D" uid="uid://vf2iynyl2xdy" path="res://plugin/downloader_list/v1_0_0/ui/assets/arrow-up.svg" id="4_djmip"]
+[ext_resource type="Texture2D" uid="uid://becc2mcqy8lot" path="res://plugin/downloader_list/v1_0_0/ui/assets/trash.svg" id="4_stl4x"]
+[ext_resource type="Texture2D" uid="uid://p27bnbkd37jr" path="res://plugin/downloader_list/v1_0_0/ui/assets/refresh.svg" id="5_75smn"]
+[ext_resource type="Texture2D" uid="uid://blp6ltosd2wom" path="res://plugin/downloader_list/v1_0_0/ui/assets/arrow-down.svg" id="5_c3xag"]
+[ext_resource type="Script" path="res://addons/ReorderableContainer/reorderable_container.gd" id="12_ddwpm"]
+[ext_resource type="Texture2D" uid="uid://dpkf60uvoxe67" path="res://plugin/downloader_list/v1_0_0/ui/assets/folder.svg" id="13_auk1f"]
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_1sox0")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="DownloadStat" type="OptionButton" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+alignment = 1
+clip_text = true
+item_count = 3
+selected = 0
+fit_to_longest_item = false
+popup/item_0/text = "ALL"
+popup/item_0/id = 0
+popup/item_1/text = "DOWNLOADING"
+popup/item_1/id = 1
+popup/item_2/text = "FINISH"
+popup/item_2/id = 2
+
+[node name="DownloaderList" type="Button" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "USED"
+
+[node name="DownloaderListPopupMenu" type="PopupMenu" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+size = Vector2i(112, 143)
+hide_on_item_selection = false
+hide_on_checkable_item_selection = false
+
+[node name="AddButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = ExtResource("2_xooy5")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="RefreshButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = ExtResource("5_75smn")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture = ExtResource("3_yrk3b")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("4_djmip")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="TotalUploadSpeed" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "0kb/s"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+texture = ExtResource("5_c3xag")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="TotalDownloadSpeed" type="Label" parent="VBoxContainer/HBoxContainer/HBoxContainer3/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "0kb/s"
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="CloseButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = ExtResource("3_80flq")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="DeleteButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = ExtResource("4_stl4x")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="StartButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = ExtResource("2_ffgom")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="PauseButton" type="TextureButton" parent="VBoxContainer/HBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = ExtResource("3_dxyxy")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="Container" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TaskContainer" type="ScrollContainer" parent="VBoxContainer/Container"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TaskNodeContainer" type="Container" parent="VBoxContainer/Container/TaskContainer" node_paths=PackedStringArray("scroll_container")]
+unique_name_in_owner = true
+process_mode = 1
+custom_minimum_size = Vector2(0, 410)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("12_ddwpm")
+is_vertical = true
+scroll_container = NodePath("..")
+
+[node name="AddTaskContainer" type="VBoxContainer" parent="VBoxContainer/Container"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.2
+anchor_top = 0.2
+anchor_right = 0.8
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.00112041
+theme_override_constants/separation = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Container/AddTaskContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "URL / File"
+
+[node name="AddTaskURL" type="LineEdit" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddTaskFolderFileDialog" type="FileDialog" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer"]
+unique_name_in_owner = true
+title = "Open a File"
+size = Vector2i(435, 159)
+ok_button_text = "打开"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.metalink ;metalink file", "*.torrent ;torrent file")
+use_native_dialog = true
+
+[node name="AddTaskFolderButton" type="TextureButton" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = ExtResource("13_auk1f")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Container/AddTaskContainer"]
+layout_mode = 2
+
+[node name="AddTaskURLLabel" type="Label" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Rename"
+
+[node name="AddTaskRenameName" type="LineEdit" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/Container/AddTaskContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Split"
+
+[node name="AddTaskSplitNum" type="SpinBox" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 256.0
+value = 64.0
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/Container/AddTaskContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "StoreDir
+"
+
+[node name="AddTaskStoreDir" type="LineEdit" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer4"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddTaskStoreDirFileDialog" type="FileDialog" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer4"]
+unique_name_in_owner = true
+title = "Open a Directory"
+size = Vector2i(435, 159)
+ok_button_text = "选择当前文件夹"
+file_mode = 2
+access = 2
+use_native_dialog = true
+
+[node name="AddTaskStoreDirButton" type="TextureButton" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+texture_normal = ExtResource("13_auk1f")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer/Container/AddTaskContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer5"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Header"
+
+[node name="AddTaskHeader" type="TextEdit" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer5"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer/Container/AddTaskContainer"]
+layout_mode = 2
+
+[node name="CancelAddTaskPanel" type="Button" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Cancel"
+
+[node name="SubmitAddTask" type="Button" parent="VBoxContainer/Container/AddTaskContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Submit
+"
+
+[connection signal="item_selected" from="VBoxContainer/HBoxContainer/HBoxContainer/DownloadStat" to="." method="_on_download_stat_item_selected"]
+[connection signal="toggled" from="VBoxContainer/HBoxContainer/HBoxContainer/DownloaderList" to="." method="_on_downloader_list_toggled"]
+[connection signal="index_pressed" from="VBoxContainer/HBoxContainer/HBoxContainer/DownloaderListPopupMenu" to="." method="_on_downloader_list_popup_menu_index_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer/AddButton" to="." method="_on_add_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer/RefreshButton" to="." method="_on_refresh_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer2/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer2/DeleteButton" to="." method="_on_delete_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer2/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/HBoxContainer2/PauseButton" to="." method="_on_pause_button_pressed"]
+[connection signal="sort_children" from="VBoxContainer/Container/TaskContainer/TaskNodeContainer" to="VBoxContainer/Container/TaskContainer/TaskNodeContainer" method="_on_sort_children"]
+[connection signal="file_selected" from="VBoxContainer/Container/AddTaskContainer/HBoxContainer/AddTaskFolderFileDialog" to="." method="_on_add_task_folder_file_dialog_file_selected"]
+[connection signal="pressed" from="VBoxContainer/Container/AddTaskContainer/HBoxContainer/AddTaskFolderButton" to="." method="_on_add_task_folder_button_pressed"]
+[connection signal="dir_selected" from="VBoxContainer/Container/AddTaskContainer/HBoxContainer4/AddTaskStoreDirFileDialog" to="." method="_on_add_task_store_dir_file_dialog_dir_selected"]
+[connection signal="pressed" from="VBoxContainer/Container/AddTaskContainer/HBoxContainer4/AddTaskStoreDirButton" to="." method="_on_add_task_store_dir_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Container/AddTaskContainer/HBoxContainer6/CancelAddTaskPanel" to="." method="_on_cancel_add_task_panel_pressed"]
+[connection signal="pressed" from="VBoxContainer/Container/AddTaskContainer/HBoxContainer6/SubmitAddTask" to="." method="_on_submit_add_task_pressed"]

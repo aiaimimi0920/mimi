@@ -1,0 +1,102 @@
+[gd_scene load_steps=4 format=3 uid="uid://i1lysgh0ffsk"]
+
+[ext_resource type="Script" path="res://plugin/file_list/v1_0_1/ui/search_config.gd" id="1_a5ynr"]
+[ext_resource type="Texture2D" uid="uid://b4wx81tx7hybh" path="res://plugin/file_list/v1_0_1/ui/assets/Add.svg" id="2_dfwve"]
+[ext_resource type="Texture2D" uid="uid://dhi1ru8ufsiss" path="res://plugin/file_list/v1_0_1/ui/assets/Remove.svg" id="3_thrgg"]
+
+[node name="SearchConfig" type="ConfirmationDialog"]
+title = "View Config"
+position = Vector2i(0, 36)
+size = Vector2i(500, 398)
+visible = true
+unresizable = true
+script = ExtResource("1_a5ynr")
+
+[node name="HBox" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 492.0
+offset_bottom = 349.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBox" type="HBoxContainer" parent="HBox"]
+layout_mode = 2
+
+[node name="Option" type="OptionButton" parent="HBox/HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Add" type="Button" parent="HBox/HBox"]
+layout_mode = 2
+icon = ExtResource("2_dfwve")
+
+[node name="Delete" type="Button" parent="HBox/HBox"]
+layout_mode = 2
+icon = ExtResource("3_thrgg")
+
+[node name="Control" type="Control" parent="HBox"]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="HBox"]
+layout_mode = 2
+columns = 2
+
+[node name="Label" type="Label" parent="HBox/Grid"]
+layout_mode = 2
+text = "Name:"
+horizontal_alignment = 2
+
+[node name="Name" type="LineEdit" parent="HBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="HBox/Grid"]
+layout_mode = 2
+text = "Icon:"
+horizontal_alignment = 2
+
+[node name="Icon" type="LineEdit" parent="HBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ApplyInclude" type="CheckBox" parent="HBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+text = "Include:"
+
+[node name="Include" type="TextEdit" parent="HBox/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ApplyExclude" type="CheckBox" parent="HBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 0
+text = "Exclude:"
+
+[node name="Exclude" type="TextEdit" parent="HBox/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HideFolder" type="CheckBox" parent="HBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Hide \"Empty\" Folders"
+
+[connection signal="canceled" from="." to="." method="_on_canceled"]
+[connection signal="confirmed" from="." to="." method="_on_confirmed"]
+[connection signal="item_selected" from="HBox/HBox/Option" to="." method="_on_Option_item_selected"]
+[connection signal="pressed" from="HBox/HBox/Add" to="." method="_on_Add_pressed"]
+[connection signal="pressed" from="HBox/HBox/Delete" to="." method="_on_Delete_pressed"]
+[connection signal="text_changed" from="HBox/Grid/Icon" to="." method="_on_Icon_text_changed"]

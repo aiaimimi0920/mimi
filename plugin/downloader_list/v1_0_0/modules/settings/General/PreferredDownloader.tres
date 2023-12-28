@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://ds0rb7outh7lv"]
+
+[ext_resource type="Script" path="res://plugin/downloader_list/v1_0_0/modules/settings/General/PreferredDownloader.gd" id="1_k7m2i"]
+
+[resource]
+resource_name = "PreferredDownloader"
+script = ExtResource("1_k7m2i")
+current = ""
+default = ""
+name = "PreferredDownloader"
+category = "General"
+value_type = 4
+value_hint = 0
+value_hint_string = ""
+show_visible = true
+show_name = "PreferredCloudStorage"
+show_ui = 9

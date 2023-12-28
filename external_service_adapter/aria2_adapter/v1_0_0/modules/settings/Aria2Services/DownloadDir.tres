@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c58htsq8786jc"]
+
+[ext_resource type="Script" path="res://external_service_adapter/aria2_adapter/v1_0_0/modules/settings/Aria2Services/DownloadDir.gd" id="1_eialj"]
+
+[resource]
+resource_name = "DownloadDir"
+script = ExtResource("1_eialj")
+current = null
+default = null
+name = "DownloadDir"
+category = "Aria2Services"
+value_type = 4
+value_hint = 0
+value_hint_string = ""
+show_visible = true
+show_name = "ENDPOINT"
+show_ui = 9
