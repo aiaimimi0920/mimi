@@ -19,7 +19,7 @@ var message = null
 func set_message(cur_message):
 	message = cur_message
 	%FileNameLabel.text = message.file_name
-	%FileSize.text = message.get_format_file_size(message.file_size)
+	%FileSize.text = FormatUtils.get_format_file_size(message.file_size)
 	update_download_button_status()
 
 		
@@ -49,5 +49,5 @@ func _on_download_button_toggled(toggled_on):
 func message_download_finish():
 	update_download_button_status()
 	%TextureProgressBar.value = 100
-	%FileSize.text = message.get_format_file_size(message.file_size)
+	%FileSize.text = FormatUtils.get_format_file_size(message.file_size)
 

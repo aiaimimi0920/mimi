@@ -199,30 +199,3 @@ func base_begin_download(cur_file_url):
 		return file_path
 	pass
 
-## Unit in bytes
-static func get_format_file_size(cur_file_size):
-	if typeof(cur_file_size)==TYPE_INT:
-		var kb = int(cur_file_size/1024)
-		var show_kb = int(kb%1024)
-		var mb = int(kb/1024)
-		var show_mb = mb%1024
-		var gb = int(mb/1024)
-		var show_gb = gb%1024
-		var tb = int(gb/1024)
-		var show_tb = tb
-		if show_tb!=0:
-			## Display TB
-			return "%.2f TB"%show_tb+(show_gb*1.0/1024)
-		if show_gb!=0:
-			## Display GB
-			return "%.2f GB"%show_gb+(show_mb*1.0/1024)
-		if show_mb!=0:
-			## Display MB
-			return "%.2f MB"%show_mb+(show_kb*1.0/1024)
-		if show_kb!=0:
-			## Display KB
-			return "%.2f KB"%show_kb
-	if cur_file_size:
-		return cur_file_size
-	else:
-		return "0 KB"

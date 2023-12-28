@@ -10,3 +10,6 @@ var last_conversation_id:
 		return get_value("General","LastConversationID","")
 	set(value):
 		set_value("General","LastConversationID",value)
+
+func get_ui_instance():
+	return null

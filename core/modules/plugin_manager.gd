@@ -481,7 +481,8 @@ func get_beautify_plugin_info(_info:Dictionary)->String:
 
 
 #var init_plugins_name = ["pck_adapter","ipfs_adapter","aws_adapter","update_bot"]
-var init_plugins_name = ["pck_adapter","ipfs_adapter","aws_adapter","cloudflare_adapter","file_list","update_bot"]
+var init_plugins_name = ["pck_adapter", "downloader_list","file_list", "aria2_adapter","godot_http_adapter",
+		"ipfs_adapter","aws_adapter","cloudflare_adapter","local_file_adapter","update_bot"]
 #var init_plugins_name = []
 
 
@@ -594,6 +595,8 @@ func get_plugin_with_filename(f_name:String,version=-1)->PluginAPI:
 	return null
 	
 
+var loadding_plugin_map={}
+
 ## Obtain the name of the plugin from any of its subscripts
 func get_plugin_instance_by_script_name(plugin_script_name,load_version=-1,auto_load=true):
 	var result = get_plugin_name(plugin_script_name)
@@ -602,9 +605,22 @@ func get_plugin_instance_by_script_name(plugin_script_name,load_version=-1,auto_
 		load_version = result[1]
 	var instance = get_plugin_with_filename(plugin_script_file_name,load_version)
 	if instance == null and auto_load:
-		await load_plugin_by_name_version(plugin_script_name,load_version)
+		var signal_name = plugin_script_name+"_"+str(load_version)+"_is_init"
+		if loadding_plugin_map.get(plugin_script_name) == load_version:
+			await Signal(self, signal_name) 
+		else:
+			loadding_plugin_map[plugin_script_name] = load_version
+			if has_signal(signal_name):
+				pass
+			else:
+				add_user_signal(signal_name)
+			await load_plugin_by_name_version(plugin_script_name,load_version)
+			loadding_plugin_map.erase(plugin_script_name)
+			emit_signal(signal_name)
+			
 		instance = get_plugin_with_filename(plugin_script_file_name,load_version)
-	await instance.is_ready()
+	if instance:
+		await instance.is_ready()
 	return instance
 
 func get_plugin_name(plugin_script_name):

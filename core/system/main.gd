@@ -46,15 +46,15 @@ func update_mouse_passthrough():
 	DisplayServer.window_set_mouse_passthrough(last_box_polygons)
 	
 	## By the way, update the settings interface of the sub window
-	%ConversationContainer.update_settings_dialog_position()
-	%PluginConversationContainer.update_settings_dialog_position()
+	#%ConversationContainer.update_settings_dialog_position()
+	#%PluginConversationContainer.update_settings_dialog_position()
 
 
 func get_polygons_from_rect(cur_rect):
 	var box_polygons = PackedVector2Array([cur_rect.position,cur_rect.position+Vector2(cur_rect.size.x,0),cur_rect.end,cur_rect.position+Vector2(0,cur_rect.size.y)])
 	return box_polygons
 	
-	
+
 var free_ai_bot
 
 func _ready()->void:
@@ -62,7 +62,6 @@ func _ready()->void:
 	_initialize_window()
 	## Wait for one frame to initialize all UI positions
 	update_mouse_passthrough_flag = true
-	
 	## Check if updates are needed after startup
 	if not Engine.is_editor_hint():
 		pass
@@ -75,6 +74,7 @@ func _ready()->void:
 		## Waiting for login
 		await AuthorizeManager.token_recieved
 	await PluginManager.reload_plugins()
+	test_funcs()
 	free_ai_bot = await PluginManager.get_plugin_instance_by_script_name("free_ai_bot")
 	
 	
@@ -283,3 +283,6 @@ func _process(delta):
 	if update_mouse_passthrough_flag == true:
 		update_mouse_passthrough()
 		update_mouse_passthrough_flag = false
+
+func test_funcs():
+	pass

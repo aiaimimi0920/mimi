@@ -51,6 +51,10 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 
+[node name="UIContainer" type="Container" parent="ConversationContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
 [node name="ConversationAboutDialog" parent="ConversationContainer" instance=ExtResource("5_3nv0g")]
 unique_name_in_owner = true
 visible = false
@@ -66,5 +70,7 @@ visible = false
 [connection signal="open_about_dialog" from="ConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_about_dialog"]
 [connection signal="open_bug_tracker_url" from="ConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_bug_tracker_url"]
 [connection signal="open_manual_url" from="ConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_manual_url"]
+[connection signal="open_message_dialog" from="ConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_message_dialog"]
 [connection signal="open_settings_dialog" from="ConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_settings_dialog"]
+[connection signal="open_ui_dialog" from="ConversationContainer/Menubar/ConversationMainMenu" to="." method="_on_conversation_main_menu_open_ui_dialog"]
 [connection signal="child_entered_tree" from="ConversationContainer/ScrollContainer/MarginContainer/Conversation" to="." method="_on_conversation_child_entered_tree"]

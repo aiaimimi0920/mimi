@@ -11,7 +11,7 @@ var data:
 
 func update_ui():
 	%Icon.texture = data.get("icon",null)
-	%NameVersionLabel.text = data.get("name","unknown")+" "+data.get("version","v1_0_0")
+	%NameVersionLabel.text = data.get("name","unknown")+" "+ PluginManager.get_version_str_by_num(data.get("version","v1_0_0"))
 	%AuthorLabel.text = data.get("author","anonymous")
 	%WebsiteLinkButton.text = data.get("url","")
 	%WebsiteLinkButton.uri = data.get("url","")
@@ -36,14 +36,14 @@ func update_ui():
 			var cur_label = Label.new()
 			if len(cur_dependency_data) == 1:
 				## Only the minimum version
-				cur_label.text = dependency_name+" "+use_dependency_version.get(dependency_name,"-")+"(%s)"%[cur_dependency_data[0]]
+				cur_label.text = dependency_name+" "+ PluginManager.get_version_str_by_num(use_dependency_version.get(dependency_name,"-"))+"(%s)"%[PluginManager.get_version_str_by_num(cur_dependency_data[0])]
 				pass
 			elif len(cur_dependency_data) == 2:
 				## minimum version and maximum version
-				cur_label.text = dependency_name+" "+use_dependency_version.get(dependency_name,"-")+"(%s-%s)"%[cur_dependency_data[0],cur_dependency_data[1]]
+				cur_label.text = dependency_name+" " + PluginManager.get_version_str_by_num(use_dependency_version.get(dependency_name,"-"))+"(%s-%s)"%[PluginManager.get_version_str_by_num(cur_dependency_data[0]),PluginManager.get_version_str_by_num(cur_dependency_data[1])]
 				pass
 			else:
-				cur_label.text = dependency_name+" "+use_dependency_version.get(dependency_name,"-")
+				cur_label.text = dependency_name+" " + PluginManager.get_version_str_by_num(use_dependency_version.get(dependency_name,"-"))
 			
 			%DependencyContainer.add_child(cur_label)
 			pass

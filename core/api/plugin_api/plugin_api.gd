@@ -551,3 +551,6 @@ func is_ready()->bool:
 	if is_service_connected():
 		return true
 	return true
+
+func get_ui_instance():
+	return null

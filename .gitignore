@@ -40,3 +40,4 @@ mono_crash.*.json
 
 !*.dll
 addons/ffmpeg/win64/~libgdffmpeg.windows.template_debug.x86_64.dll
+addons/aria2/win64/~libgdaria2.windows.template_debug.x86_64.dll

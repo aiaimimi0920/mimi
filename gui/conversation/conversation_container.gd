@@ -9,7 +9,7 @@ func _on_menubar_create_new_conversation():
 		%Menubar.make_tab(cur_conversation)
 	
 	_on_menubar_conversation_selected(cur_conversation.conversation_id)
-
+	set_conversation_visible(true)
 
 func _on_menubar_conversation_closed(conversation_id):
 	var cur_conversation = ConversationManager.get_conversation(conversation_id)
@@ -24,7 +24,8 @@ func _on_menubar_conversation_closed(conversation_id):
 		_on_menubar_create_new_conversation()
 	else:
 		_on_menubar_conversation_selected(first_conversation_id)
-
+	
+	set_conversation_visible(true)
 
 func _on_menubar_conversation_selected(conversation_id):
 	var cur_conversation = ConversationManager.get_conversation(conversation_id)
@@ -35,7 +36,8 @@ func _on_menubar_conversation_selected(conversation_id):
 		%Menubar.set_tab_active(cur_conversation)
 		ConfigManager.last_conversation_id = conversation_id
 	emit_signal("change_conversation", last_cur_conversation, ConversationManager.now_use_main_conversation)
-
+	
+	set_conversation_visible(true)
 
 func _ready():
 	var last_cur_conversation_id = null
@@ -54,7 +56,6 @@ func _ready():
 		
 	ConversationManager.connect("add_new_main_conversation_finished", %Menubar.make_tab)
 	
-
 
 ## TODO:Do not enable export for now
 func _on_conversation_main_menu_export_md():
@@ -104,3 +105,31 @@ func _on_conversation_child_entered_tree(node):
 func update_settings_dialog_position():
 	%SettingsDialog.position = self.get_screen_position()+ Vector2(self.size/2) - Vector2(%SettingsDialog.size/2)
 
+func set_conversation_visible(bvisible):
+	%Conversation.visible = bvisible
+	%UIContainer.visible = not bvisible
+
+func _on_conversation_main_menu_open_message_dialog():
+	set_conversation_visible(true)
+
+func _on_conversation_main_menu_open_ui_dialog():
+	if %Conversation.conversation == null:
+		return false
+	var cur_name = %Conversation.conversation.conversation_type
+	var cur_node = %UIContainer.get_node_or_null(cur_name)
+	if cur_node == null:
+		cur_node = ConfigManager.get_ui_instance()
+		if cur_node == null:
+			return false
+		%UIContainer.add_child(cur_node)
+		cur_node.add_to_group(cur_name)
+		cur_node.name = cur_name
+	set_conversation_visible(false)
+	%Timer.start()
+
+
+var last_global_position = Vector2(0,0)
+func _process(delta):
+	if last_global_position!=global_position:
+		%SettingsDialog.position = self.get_screen_position()+ Vector2(self.size/2) - Vector2(%SettingsDialog.size/2)
+		%ConversationAboutDialog.position = self.get_screen_position()+ Vector2(self.size/2) - Vector2(%ConversationAboutDialog.size/2)

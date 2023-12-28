@@ -1,0 +1,23 @@
+[configuration]
+
+entry_symbol = "gdaria2_init"
+compatibility_minimum = 4.2
+
+[libraries]
+windows.debug.x86_64 = "res://addons/aria2/win64/libgdaria2.windows.template_debug.x86_64.dll"
+windows.release.x86_64 = "res://addons/aria2/win64/libgdaria2.windows.template_release.x86_64.dll"
+
+[dependencies]
+
+windows.x86_64 = 
+    {"res://addons/aria2/win64/libaria2-0.dll": "",
+    "res://addons/aria2/win64/libcares-2.dll": "",
+    "res://addons/aria2/win64/libcrypto-3-x64.dll": "",
+    "res://addons/aria2/win64/libexpat-1.dll": "",
+    "res://addons/aria2/win64/libgcc_s_seh-1.dll": "",
+    "res://addons/aria2/win64/libgmp-10.dll": "",
+    "res://addons/aria2/win64/libsqlite3-0.dll": "",
+    "res://addons/aria2/win64/libssh2-1.dll": "",
+    "res://addons/aria2/win64/libstdc++-6.dll": "",
+    "res://addons/aria2/win64/libwinpthread-1.dll": "",
+    "res://addons/aria2/win64/zlib1.dll": ""}

@@ -1,17 +1,21 @@
 extends ConversationContainer
 
+var plugin_ui_group_name = "plugin_ui"
+
 func _on_menubar_conversation_closed(conversation_id):
 	var cur_conversation = ConversationManager.get_conversation(conversation_id)
 	if cur_conversation:
 		%Menubar.remove_tab(cur_conversation)
 	var cur_new_conversation = ConversationManager.create_plugin_conversation(cur_conversation.conversation_name)
 	%Conversation.conversation = cur_new_conversation
+	set_conversation_visible(true)
 
 func _on_menubar_conversation_selected(conversation_id):
 	var cur_conversation = ConversationManager.get_conversation(conversation_id)
 	%Conversation.conversation = cur_conversation
 	if cur_conversation:
 		%Menubar.set_tab_active(cur_conversation)
+	set_conversation_visible(true)
 
 func _ready():
 	var last_cur_conversation_id = null
@@ -92,5 +96,46 @@ func _on_conversation_child_entered_tree(node):
 	%ScrollContainer.ensure_control_visible(node)
 	%ScrollContainer.scroll_vertical+=40
 
-func update_settings_dialog_position():
-	%SettingsDialog.position = self.get_screen_position()+ Vector2(self.size/2) - Vector2(%SettingsDialog.size/2)
+#func update_settings_dialog_position():
+	#%SettingsDialog.position = self.get_screen_position()+ Vector2(self.size/2) - Vector2(%SettingsDialog.size/2)
+
+
+func set_conversation_visible(bvisible):
+	%Conversation.visible = bvisible
+	%UIContainer.visible = not bvisible
+
+func _on_conversation_main_menu_open_message_dialog():
+	set_conversation_visible(true)
+
+func _on_conversation_main_menu_open_ui_dialog():
+	if %Conversation.conversation == null:
+		return false
+	var cur_plugin_name = %Conversation.conversation.conversation_name
+	var cur_node = %UIContainer.get_node_or_null(cur_plugin_name)
+	if cur_node == null:
+		var cur_plugin = await PluginManager.get_plugin_instance_by_script_name(cur_plugin_name)
+		cur_node = cur_plugin.get_ui_instance()
+		if cur_node == null:
+			return false
+		%UIContainer.add_child(cur_node)
+		cur_node.add_to_group(plugin_ui_group_name)
+		cur_node.name = cur_plugin_name
+		
+	show_plugin_ui(cur_node)
+	set_conversation_visible(false)
+	%Timer.start()
+
+func show_plugin_ui(cur_node):
+	for node in %UIContainer.get_children():
+		if node.is_in_group(plugin_ui_group_name) and node!=cur_node:
+			node.visible = false
+	cur_node.visible = true
+
+
+func _on_timer_timeout():
+	for node in %UIContainer.get_children():
+		var instance = await PluginManager.get_plugin_instance_by_script_name(node.name,-1,false)
+		if instance==null:
+			node.queue_free()
+	if %UIContainer.get_children().size()==0:
+		%Timer.stop()

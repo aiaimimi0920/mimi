@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dqauy7ar7gatu"]
 
-[ext_resource type="Texture2D" uid="uid://cmfmqxllixt88" path="res://icon.svg" id="1_gwosh"]
+[ext_resource type="Texture2D" uid="uid://d3abf1luehhep" path="res://icon.svg" id="1_gwosh"]
 [ext_resource type="Script" path="res://gui/conversation/conversation_message_container.gd" id="1_hvkj3"]
 [ext_resource type="PackedScene" uid="uid://dqett8pktlr15" path="res://gui/conversation/conversation_message.tscn" id="2_f87fv"]
 [ext_resource type="Texture2D" uid="uid://bxkudy6pdo2f1" path="res://resources/models_data/model_vignettes/gdbot_vignette.png" id="2_xh7tu"]

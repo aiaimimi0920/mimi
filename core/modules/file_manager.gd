@@ -45,7 +45,7 @@ static func remove_file(p_file : String) -> void:
 
 static func scan(path:String, need_dir=false, convert_path=false) -> Array:
 	var files := []
-
+	path = path.simplify_path()
 	var base_path_array = []
 	var base_regex_path = ""
 	if path.begins_with("res://"):
@@ -75,6 +75,7 @@ static func scan(path:String, need_dir=false, convert_path=false) -> Array:
 	
 	path = "/".join(base_path_array)
 	
+	
 	var result_regex_path_array = []
 	for i in range(len(result_regex_array)):
 		var cur_result_regex = result_regex_array[i]
@@ -85,15 +86,31 @@ static func scan(path:String, need_dir=false, convert_path=false) -> Array:
 				break
 			if cur_result_regex[j] == r"\\":
 				result_cur_result_regex = result_cur_result_regex + "\\\\"
+			elif cur_result_regex[j] == "(" or cur_result_regex[j] == ")":
+				result_cur_result_regex = result_cur_result_regex +"\\"+cur_result_regex[j]
 			else:
 				result_cur_result_regex = result_cur_result_regex + cur_result_regex[j]
 				
 			j += 1
 		result_regex_path_array.append(result_cur_result_regex)
 	
-	var regex_path = path.path_join("/".join(result_regex_path_array))
 
-	
+	var k = 0
+	var cur_regex_base_path = ""
+	while true:
+		if k>len(path)-1:
+			break
+		if path[k] == "(" or path[k] == ")":
+			cur_regex_base_path = cur_regex_base_path +"\\"+path[k]
+		else:
+			cur_regex_base_path = cur_regex_base_path + path[k]
+			
+		k += 1
+		
+	var regex_path = cur_regex_base_path
+	if result_regex_path_array.size()>0:
+		regex_path = cur_regex_base_path.path_join("/".join(result_regex_path_array))
+
 	var directory = DirAccess.open(path)
 	if directory:
 		var all_files = directory.get_files()
@@ -109,10 +126,8 @@ static func scan(path:String, need_dir=false, convert_path=false) -> Array:
 	if need_dir:
 		files.push_back(path)
 	
-
 	var regex = RegEx.new()
 	regex.compile(regex_path)
-
 	var regex_result_files = []
 	for file_path in files:
 		var result = regex.search(file_path)

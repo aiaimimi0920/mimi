@@ -1,3 +1,3 @@
 extends Node
 
-const version = 2
+const version = 3
